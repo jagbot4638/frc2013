@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Talon;
 /**
  *
  * @author Saagar
@@ -19,11 +20,14 @@ class Driver {
     double joystickX = 0.0;
     double joystickY = 0.0;
     
-    Joystick stick1;
-    RobotDrive drive1;
+    Joystick moveStick;
+    RobotDrive robotDrive;
     
     public Driver(){
-      
+        moveStick = new Joystick(RobotConstants.Drive.joystick);
+        
+        robotDrive = new RobotDrive(RobotConstants.Drive.leftMotor,
+                RobotConstants.Drive.rightMotor);
     }
     
     public void drive(){
@@ -36,17 +40,17 @@ class Driver {
 
     private void userInput() {
         
-        joystickY = stick1.getAxis(Joystick.AxisType.kY);
-        joystickX = stick1.getAxis(Joystick.AxisType.kX);
+        joystickY = moveStick.getAxis(Joystick.AxisType.kY);
+        joystickX = moveStick.getAxis(Joystick.AxisType.kX);
         
     }
 
     private void minimizeMotorDamage(double previousJoystickX, double
             previousJoystickY) {
-        // if (joystickX - previousJoystickX ...) joystickX = ...;
+        
     }
 
     private void moveMotors() {
-        drive1.arcadeDrive(joystickX, joystickY);
+        robotDrive.arcadeDrive(joystickX, joystickY);
     }
 }
