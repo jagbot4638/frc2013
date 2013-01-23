@@ -35,7 +35,7 @@ class Driver {
         double previousJoystickY = joystickY;
         userInput();
         minimizeMotorDamage(previousJoystickX, previousJoystickY);
-        moveMotors();
+        move();
     }
 
     private void userInput() {
@@ -47,10 +47,23 @@ class Driver {
 
     private void minimizeMotorDamage(double previousJoystickX, double
             previousJoystickY) {
-        
+        joystickX = keepWithin(joystickX, previousJoystickX, RobotConstants.Drive.threshold);
+        joystickY = keepWithin(joystickY, previousJoystickY, RobotConstants.Drive.threshold);
     }
 
-    private void moveMotors() {
+    private void move() {
         robotDrive.arcadeDrive(joystickX, joystickY);
+    }
+
+    private double keepWithin(double velocity, double initialVelocity, double threshold) {
+        final double deltaVelocity = velocity - initialVelocity;
+        if (Math.abs(deltaVelocity) <= threshold){
+            return velocity;
+        }else if (deltaVelocity > 0){
+            return initialVelocity + threshold;
+        }else{
+            return initialVelocity - threshold;
+        }
+        
     }
 }
