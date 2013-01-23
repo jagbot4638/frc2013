@@ -14,6 +14,8 @@ public class RobotConstants {
         }
         public static final double threshold = 0.5;
         
+        public static final int joystick = 1;
+        
         public static final int leftMotor = 1;
         public static final int rightMotor = 2;
     }
