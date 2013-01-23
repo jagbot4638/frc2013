@@ -12,11 +12,11 @@ public class RobotConstants {
     public static final class Drive {
         private Drive(){
         }
-        public static final double threshold = 0.5;
+        public static final double THRESHOLD = .05;
         
-        public static final int joystick = 1;
+        public static final int JOYSTICK = 1;
         
-        public static final int leftMotor = 1;
-        public static final int rightMotor = 2;
+        public static final int LEFT_MOTOR = 1;
+        public static final int RIGHT_MOTOR = 2;
     }
 }
