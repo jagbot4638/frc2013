@@ -4,40 +4,49 @@
  */
 package org.northwestrobotics.frc2013;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.SimpleRobot;
+import edu.wpi.first.wpilibj.Timer;
 /**
  *
  * @author Saagar
  */
 class Driver {
     
-    final double threshold = .5;
+    final static double threshold = .5;
     
     double joystickX = 0.0;
     double joystickY = 0.0;
     
+    Joystick stick1;
+    RobotDrive drive1;
+    
     public Driver(){
-        
+      
     }
     
     public void drive(){
         double previousJoystickX = joystickX;
         double previousJoystickY = joystickY;
         userInput();
-        minimizeMotorDamage(previousJoystickX, previousJoystickX);
+        minimizeMotorDamage(previousJoystickX, previousJoystickY);
         moveMotors();
     }
 
     private void userInput() {
-        // joystickX = ...;
-        // joystickY = ...;
+        
+        joystickY = stick1.getAxis(Joystick.AxisType.kY);
+        joystickX = stick1.getAxis(Joystick.AxisType.kX);
+        
     }
 
     private void minimizeMotorDamage(double previousJoystickX, double
-            previousJoystickX1) {
+            previousJoystickY) {
         // if (joystickX - previousJoystickX ...) joystickX = ...;
     }
 
     private void moveMotors() {
-        // arcadeDrive(joystickX, joystickY);
+        drive1.arcadeDrive(joystickX, joystickY);
     }
 }
