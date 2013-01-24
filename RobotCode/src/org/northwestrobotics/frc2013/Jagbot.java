@@ -21,12 +21,15 @@ public class Jagbot extends IterativeRobot {
     
     
     Driver driver;
+    Shooter shooter;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
         driver = new Driver();
+        shooter = new Shooter();
     }
 
     /**
@@ -41,6 +44,10 @@ public class Jagbot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         driver.drive();
+        
+        shooter.respondToUserInput();
+        if (shooter.shootButtonPressed())
+            shooter.shoot();
     }
     
     /**
