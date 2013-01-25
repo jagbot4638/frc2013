@@ -74,7 +74,7 @@ public class Shooter {
         
        // int time = 9;
         
-       shootMotor.        
+      
         shootMotor.set(0.5);
         
         shootMotor.Feed();

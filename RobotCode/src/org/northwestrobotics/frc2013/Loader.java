@@ -49,7 +49,7 @@ public class Loader {
     }
     /**
      * Picks up the frisbee
-     * author RG3
+     * @author RG3
      */
     public void pickup(){
 	while(counter.get()<86){
