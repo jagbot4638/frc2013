@@ -9,6 +9,7 @@ package org.northwestrobotics.frc2013;
 
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,6 +20,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class Jagbot extends IterativeRobot {
     
+    Joystick aimingStick;
     
     Driver driver;
     Shooter shooter;
@@ -29,7 +31,8 @@ public class Jagbot extends IterativeRobot {
      */
     public void robotInit() {
         driver = new Driver();
-        shooter = new Shooter();
+        aimingStick = new Joystick(RobotConstants.Shooting.AIMING_STICK);
+        shooter = new Shooter(aimingStick);
     }
 
     /**

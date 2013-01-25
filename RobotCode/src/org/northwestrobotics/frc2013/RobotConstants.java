@@ -5,8 +5,8 @@
 package org.northwestrobotics.frc2013;
 
 /**
- *
- * @author Saagar
+ * This class is responsible for containing all the constants for the robot.
+ * @author soggy.potato
  */
 public class RobotConstants {
     public static final class Drive {
