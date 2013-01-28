@@ -4,8 +4,12 @@
  */
 package org.northwestrobotics.frc2013;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.MotorSafetyHelper;
 import edu.wpi.first.wpilibj.Talon;
+
+
 
 /**
  * This class manages the shooting system.
@@ -36,8 +40,20 @@ public class Shooter {
      * The motor used to launch a frisbee at targets
      * @author soggy.potato
      * @author SilverX
+     * @AgentOrange
      */
     private Talon shootMotor;
+    
+    
+    /*
+     * Used to adjust pitchMotor (vertical aiming)
+     * @author AgentOrange
+     */
+    private Encoder pitchChanger; // yet to initialize
+    
+    
+    
+   
     
     
     public Shooter(Joystick aimingStick){
@@ -45,9 +61,21 @@ public class Shooter {
         initializeMotors();
     }
     
+    /*
+     * @author AgentOrange
+     * adjusts vertical aiming
+     */
+    
     public void respondToUserInput() {
         // User uses controller to aim. Read in this user input.
         double pitchAdjustment = readUserInput();
+        
+        pitchChanger.start();
+        
+        pitchChanger.setDistancePerPulse(1); //units: degrees
+        
+        
+        
         
         
         
@@ -57,6 +85,9 @@ public class Shooter {
         // the angle the user wants it to reach
         
         
+        if(pitchChanger.getDistance() == pitchAdjustment)
+             pitchChanger.stop();
+        }
         
     }
     
@@ -72,10 +103,21 @@ public class Shooter {
      */
     public void shoot() {
         
-       // int time = 9;
+        double time = 10; //change time later
+        double speed = 0.5;
+        
+        shootMotor.setExpiration(time);
+        shootMotor.set(speed); // change speed later
+        
+        
+        
+        
+        
+        
+        
         
       
-        shootMotor.set(0.5);
+        
         
         shootMotor.Feed();
         // Start the shooter motor
@@ -83,7 +125,7 @@ public class Shooter {
         // to spin the motor to launch one frisbee.
         // The T constants value will be determined through testing.
         
-        shootMotor.stopMotor();
+        
     }
     /**
      * Reads in the user's commands for the robot.
