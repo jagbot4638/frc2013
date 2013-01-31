@@ -44,7 +44,7 @@ public class Shooter {
      * Used to adjust pitchMotor (vertical aiming)
      * @author AgentOrange
      */
-    private Encoder pitchChanger; // yet to initialize
+    private Encoder pitchChanger = null; // TODO: yet to initialize
 
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
@@ -62,7 +62,6 @@ public class Shooter {
         pitchChanger.start();
 
         pitchChanger.setDistancePerPulse(1); //units: degrees
-
 
 
 
@@ -99,18 +98,11 @@ public class Shooter {
 
         shootMotor.setExpiration(RobotConstants.Shooting.EXPIRATION_TIME);
         shootMotor.set(RobotConstants.Shooting.MOTOR_SPEED); // change speed later
-
-
-
-
-
-
-
-
-
-
-
-        shootMotor.Feed();
+      
+        shootMotor.Feed(); 
+        
+        
+        
         // Start the shooter motor
         // Keep the shooter motor on for T seconds, where T is the amount of time
         // to spin the motor to launch one frisbee.
@@ -125,8 +117,7 @@ public class Shooter {
      * @return The pitch adjustment from the aiming joystick.
      */
     private double readUserInput() {
-        shootButton = aimingStick.getRawButton(
-                RobotConstants.Shooting.SHOOT_BUTTON); // Determine whether the shoot button is pressed or not
+        shootButton = aimingStick.getRawButton(RobotConstants.Shooting.SHOOT_BUTTON); // Determine whether the shoot button is pressed or not
         return aimingStick.getY(); // Get the input for adjustment to the pitch, which is the only thing we can control.
     }
 
