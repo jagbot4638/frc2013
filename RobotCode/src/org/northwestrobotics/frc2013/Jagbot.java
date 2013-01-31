@@ -20,9 +20,10 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class Jagbot extends IterativeRobot {
     
-    Joystick aimingStick;
+    Joystick aimingController;
     
     Driver driver;
+    Loader loader;
     Shooter shooter;
     
     /**
@@ -31,8 +32,9 @@ public class Jagbot extends IterativeRobot {
      */
     public void robotInit() {
         driver = new Driver();
-        aimingStick = new Joystick(RobotConstants.Shooting.AIMING_STICK);
-        shooter = new Shooter(aimingStick);
+        aimingController = new Joystick(RobotConstants.Shooting.AIMING_CONTROLLER);
+        loader = new Loader(aimingController);
+        shooter = new Shooter(aimingController);
     }
 
     /**

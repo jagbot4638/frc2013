@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Talon;
 /**
  * @author AgentOrange
  * @author soggy.potato
+ * @author RG3
  */
 class Driver {
     private double joystickX = 0.0;
@@ -28,11 +29,16 @@ class Driver {
      */
     private RobotDrive robotDrive;
     
-    
+    /**
+     * @author soggy.potato
+     * @author AgentOrange
+     * @author RG3
+     */
     public Driver(){
-        moveStick = new Joystick(RobotConstants.Drive.MOVE_STICK);
-        robotDrive = new RobotDrive(RobotConstants.Drive.LEFT_MOTOR,
-                RobotConstants.Drive.RIGHT_MOTOR);
+        moveStick = new Joystick(RobotConstants.Drive.MOVE_CONTROLLER);
+        robotDrive = new RobotDrive(RobotConstants.Drive.FRONT_LEFT_MOTOR,
+                RobotConstants.Drive.BACK_LEFT_MOTOR,RobotConstants.Drive.FRONT_RIGHT_MOTOR,
+                RobotConstants.Drive.BACK_RIGHT_MOTOR);
     }
     
     public void drive(){
