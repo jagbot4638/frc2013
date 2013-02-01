@@ -29,7 +29,7 @@ public class Loader {
      *
      */
     public Loader(Joystick controller) {
-        Compressor airCompressor = new Compressor(1, 1);  //Digtial I/O,Relay
+        Compressor airCompressor = new Compressor(1,1);  //Digtial I/O,Relay
         airCompressor.start();                        // Start the air compressor
         this.controller = controller;
         armRetractor = new Solenoid(1);                        // Solenoid port

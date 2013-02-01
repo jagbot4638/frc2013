@@ -93,7 +93,7 @@ public class Shooter {
      * Fires a frisbee.
      */
     public void shoot() {
-
+    System.out.println("Bang Bang");
         double speed = 0.5;
 
         shootMotor.setExpiration(RobotConstants.Shooting.EXPIRATION_TIME);
