@@ -40,6 +40,15 @@ public class RobotConstants {
         public static final double EXPIRATION_TIME = 10;
         public static final double MOTOR_SPEED = .5;
         public static final double PITCH_FACTOR = .2;
+        
+        // Feeder
+        public static final int FEEDER_CHANNEL = 1;
+        
+        /**
+         * Waits specific amount of time before pushing in next disc into shooter
+         * @author AgentOrange
+         */
+        public static final double FEEDER_WAIT_TIME = 2;
     }
 
     public static final class Loader {

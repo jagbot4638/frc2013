@@ -51,8 +51,9 @@ public class Jagbot extends IterativeRobot {
         driver.drive();
         
         shooter.respondToUserInput();
-        if (shooter.shootButtonPressed())
+        if (shooter.shootButtonPressed()) {
             shooter.shoot();
+        }
     }
     
     /**

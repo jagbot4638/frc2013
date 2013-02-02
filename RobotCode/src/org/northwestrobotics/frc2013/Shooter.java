@@ -7,7 +7,9 @@ package org.northwestrobotics.frc2013;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.MotorSafetyHelper;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * This class manages the shooting system.
@@ -37,7 +39,7 @@ public class Shooter {
      *
      * @author soggy.potato
      * @author SilverX
-     * @AgentOrange
+     * @author AgentOrange
      */
     private Talon shootMotor;
     /**
@@ -46,21 +48,34 @@ public class Shooter {
      */
     private Encoder pitchChanger = null; // TODO: yet to initialize
 
+    /**
+     * Pneumatic arm to push frisbees into shooter
+     * @author AgentOrange
+     */
+    private Solenoid feeder;
+    
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
         initializeMotors();
+        feeder = new Solenoid(RobotConstants.Shooting.FEEDER_CHANNEL);
     }
 
     /**
      * @author AgentOrange
-     * adjusts vertical aiming
+     * @author soggy.potato
+     * Adjusts vertical aiming in accordance to user input.
      */
     public void respondToUserInput() {
         // User uses controller to aim. Read in this user input.
+        // If the y is zero pitch arm stops moving
+        /*
+         * TODO: Find out the sign for the Y value, and adjust the pitch factor
+         * from testing. Perform a range check before calling the set method.
+         * May have to change sign.
+         */
         double pitchAdjustment = readUserInput() * RobotConstants.Shooting.PITCH_FACTOR;
-        
         pitchMotor.set(pitchAdjustment);
-
+        
     }
 
     /**
@@ -77,21 +92,17 @@ public class Shooter {
      * Fires a frisbee.
      */
     public void shoot() {
-
-        double speed = 0.5;
-
-        shootMotor.setExpiration(RobotConstants.Shooting.EXPIRATION_TIME);
-        shootMotor.set(RobotConstants.Shooting.MOTOR_SPEED); // change speed later
-      
-        shootMotor.Feed(); 
+        // 1. Start shooter motor
+        // 2. Trigger the pneumatic arm to move frisbee into shooter
+        feeder.set(true);
+        
+        Timer.delay(RobotConstants.Shooting.FEEDER_WAIT_TIME);
         
         
+        // 3. Retract arm (maybe automatic)
+        feeder.set(false);
         
-        // Start the shooter motor
-        // Keep the shooter motor on for T seconds, where T is the amount of time
-        // to spin the motor to launch one frisbee.
-        // The T constants value will be determined through testing.
-
+        // 4. Turn off shooting motor.
 
     }
 
