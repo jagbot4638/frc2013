@@ -39,6 +39,7 @@ public class RobotConstants {
         // Shoot
         public static final double EXPIRATION_TIME = 10;
         public static final double MOTOR_SPEED = .5;
+        public static final double PITCH_FACTOR = .2;
     }
 
     public static final class Loader {

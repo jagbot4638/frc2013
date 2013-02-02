@@ -40,7 +40,7 @@ public class Shooter {
      * @AgentOrange
      */
     private Talon shootMotor;
-    /*
+    /**
      * Used to adjust pitchMotor (vertical aiming)
      * @author AgentOrange
      */
@@ -51,36 +51,20 @@ public class Shooter {
         initializeMotors();
     }
 
-    /*
+    /**
      * @author AgentOrange
      * adjusts vertical aiming
      */
     public void respondToUserInput() {
         // User uses controller to aim. Read in this user input.
-        double pitchAdjustment = readUserInput();
-
-        pitchChanger.start();
-
-        pitchChanger.setDistancePerPulse(1); //units: degrees
-
-
-
-
-
-
-        // Start the angle screw motor in the direction specified by the user input amount
-        // Stop the motor once the encoder detects that the motor has reached
-        // the angle the user wants it to reach
-
-
-        if (pitchChanger.getDistance() == pitchAdjustment) {
-            pitchChanger.stop();
-        }
+        double pitchAdjustment = readUserInput() * RobotConstants.Shooting.PITCH_FACTOR;
+        
+        pitchMotor.set(pitchAdjustment);
 
     }
 
     /**
-     * Determines whether the drive time has commanded the robot to shoot a
+     * Determines whether the driver has commanded the robot to shoot a
      * frisbee.
      *
      * @author soggy.potato
