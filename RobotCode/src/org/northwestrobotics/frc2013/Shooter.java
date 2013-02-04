@@ -4,6 +4,7 @@
  */
 package org.northwestrobotics.frc2013;
 
+import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.MotorSafetyHelper;
@@ -17,7 +18,7 @@ import edu.wpi.first.wpilibj.Talon;
  * @author AgentOrange
  */
 public class Shooter {
-
+DriverStationLCD display= DriverStationLCD.getInstance();
     private Joystick aimingStick;
     // Joystick buttons
     /**
@@ -56,6 +57,11 @@ public class Shooter {
      * adjusts vertical aiming
      */
     public void respondToUserInput() {
+        //Tests Joy1 axis
+        if (false) {
+            display.println(DriverStationLCD.Line.kUser1, 1, "shoot? :"+shootButton);
+            display.updateLCD();
+        }
         // User uses controller to aim. Read in this user input.
         double pitchAdjustment = readUserInput();
 
@@ -93,7 +99,11 @@ public class Shooter {
      * Fires a frisbee.
      */
     public void shoot() {
-
+//Tests Joy1 axis
+        if (true) {
+            display.println(DriverStationLCD.Line.kUser1, 1, "shot? :"+shootButton);
+            display.updateLCD();
+        }
         double speed = 0.5;
 
         shootMotor.setExpiration(RobotConstants.Shooting.EXPIRATION_TIME);

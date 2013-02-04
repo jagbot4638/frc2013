@@ -8,6 +8,8 @@
 package org.northwestrobotics.frc2013;
 
 
+import edu.wpi.first.wpilibj.DriverStationLCD;
+import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -19,8 +21,8 @@ import edu.wpi.first.wpilibj.Joystick;
  * directory.
  */
 public class Jagbot extends IterativeRobot {
-    
-    Joystick aimingController;
+    Joystick joy1;
+    //Joystick aimingController;
     
     Driver driver;
     Loader loader;
@@ -31,10 +33,11 @@ public class Jagbot extends IterativeRobot {
      * used for any initialization code.
      */
     public void robotInit() {
+        joy1 = new Joystick(1);
         driver = new Driver();
-        aimingController = new Joystick(RobotConstants.Shooting.AIMING_CONTROLLER);
-        loader = new Loader(aimingController);
-        shooter = new Shooter(aimingController);
+        //aimingController = new Joystick(RobotConstants.Shooting.AIMING_CONTROLLER);
+        //loader = new Loader(aimingController);
+        //shooter = new Shooter(aimingController);
     }
 
     /**
@@ -48,11 +51,16 @@ public class Jagbot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
-        driver.drive();
+       String printX="X:"+joy1.getAxis(Joystick.AxisType.kX);
+        String printY="Y:"+joy1.getAxis(Joystick.AxisType.kY);
+        DriverStationLCD Display=DriverStationLCD.getInstance();
+         Display.println(DriverStationLCD.Line.kUser1, 1, printX+"/n"+printY);
+         Display.updateLCD();
+        //driver.drive();
         
-        shooter.respondToUserInput();
-        if (shooter.shootButtonPressed())
-            shooter.shoot();
+        //shooter.respondToUserInput();
+        //if (shooter.shootButtonPressed())
+           // shooter.shoot();
     }
     
     /**
