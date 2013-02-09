@@ -45,14 +45,14 @@ public class RobotConstants {
         public static final int FEEDER_CHANNEL = 1;
         
         /**
-         * Waits specific amount of time before pushing in next disc into shooter
+         * Amount of time to wait to retract the arm
          * @author AgentOrange
+         * @author soggy.potato
          */
-        public static final double FEEDER_WAIT_TIME = 2;
+        public static final double FEEDER_WAIT_TIME = 1;// second
         // soggy.potato
         public static final double SHOOT_MOTOR_SPEED = 1;
         
-        public static final double PNEUMATIC_ARM_DEACTIVATION_TIME = 1;// second
         
         public static final double SHOOT_MOTOR_DEACTIVATION_TIME = 3;// seconds
     }

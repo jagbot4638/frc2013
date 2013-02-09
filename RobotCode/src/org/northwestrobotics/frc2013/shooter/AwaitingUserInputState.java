@@ -22,7 +22,7 @@ public class AwaitingUserInputState extends ShooterState {
     }
 
     public State handle() {
-        if (shooter.shootButtonPressed()) {
+        if (shooter.isShootButtonPressed()) {
             return shooter.getShootingState();
         }
         return this;

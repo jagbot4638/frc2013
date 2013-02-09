@@ -38,7 +38,11 @@ class Driver {
                 RobotConstants.Drive.BACK_LEFT_MOTOR,RobotConstants.Drive.FRONT_RIGHT_MOTOR,
                 RobotConstants.Drive.BACK_RIGHT_MOTOR);
     }
-    
+    /**
+     * Drive the robot in response to user input.
+     * @author soggy.potato
+     * @author AgentOrange
+     */
     public void drive(){
         
         //recorded previous joystick values

@@ -15,7 +15,7 @@ public class Loader {
      * s2=sucktioncup
      * s3=shooter
      * 
-     * */
+     * 
 
     private Solenoid armRetractor, suctionCup;
     private Compressor airCompressor;//defines Axis Camera
@@ -27,7 +27,7 @@ public class Loader {
      * @param controller
      *
      *
-     */
+     
     public Loader(Joystick controller) {
         Compressor airCompressor = new Compressor(1, 1);  //Digtial I/O,Relay
         airCompressor.start();                        // Start the air compressor
@@ -42,7 +42,7 @@ public class Loader {
      * Checks pressure in system and makes sure it is constant.
      *
      * @author RG3
-     */
+     
     public void checkpressure() {
         if (airCompressor.getPressureSwitchValue() == RobotConstants.Loader.MAX_PRESSURE) {
             airCompressor.stop();
@@ -57,7 +57,7 @@ public class Loader {
      * Picks up the frisbee
      *
      * @author RG3
-     */
+     
     public void pickup() {
         while (counter.get() < 86) {
             arm.set(.5);
@@ -82,3 +82,4 @@ public class Loader {
 
     }
 }
+*/}

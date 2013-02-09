@@ -24,7 +24,7 @@ public class Jagbot extends IterativeRobot {
     Joystick aimingController;
     
     Driver driver;
-    Loader loader;
+//    Loader loader;
     Shooter shooter;
     
     /**
@@ -34,7 +34,7 @@ public class Jagbot extends IterativeRobot {
     public void robotInit() {
         driver = new Driver();
         aimingController = new Joystick(RobotConstants.Shooting.AIMING_CONTROLLER);
-        loader = new Loader(aimingController);
+        //loader = new Loader(aimingController);
         shooter = new Shooter(aimingController);
     }
 
@@ -49,9 +49,13 @@ public class Jagbot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+        // Drive the robot in response to user input
         driver.drive();
         
+        // Adjust the shooter arm angle based on the user input
         shooter.adjustAim();
+        
+        // Check and initiate shooting based on the fire button
         shooter.updateShooting();
     }
     

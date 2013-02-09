@@ -26,14 +26,14 @@ public class ShootingState extends ShooterState {
     }
 
     public State handle() {
-        if (motorStopTimer.get() >= RobotConstants.Shooting.PNEUMATIC_ARM_DEACTIVATION_TIME) {
+        if (motorStopTimer.get() >= RobotConstants.Shooting.FEEDER_WAIT_TIME) {
             shooter.getFeeder().set(false); // retract the pneumatic arm
         }
         
         // Check whether the timer has expired
         if (motorStopTimer.get() >= RobotConstants.Shooting.SHOOT_MOTOR_DEACTIVATION_TIME) {
             shooter.getShootMotor().set(0); // stop the shoot motor
-            return shooter.getBaseState(); // switch back to awaiting user input
+            return shooter.getAwaitingUserInputState(); // switch back to awaiting user input
         }   
         return this; // Stay on this state because it is not time to stop the shoot motor
     }
