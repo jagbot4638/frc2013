@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.northwestrobotics.frc2013;
+package org.northwestrobotics.frc2013.shooter;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj.MotorSafetyHelper;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import org.northwestrobotics.frc2013.RobotConstants;
+import org.northwestrobotics.frc2013.State;
+import org.northwestrobotics.frc2013.StateMachine;
 
 /**
  * This class manages the shooting system.
@@ -19,14 +22,15 @@ import edu.wpi.first.wpilibj.Timer;
  * @author AgentOrange
  */
 public class Shooter {
-
+    // Aiming
     private Joystick aimingStick;
     // Joystick buttons
     /**
      * The state of the button, which is pressed to active launching.
      */
     private boolean shootButton = false;//creates and indicator for the pressing of button
-    // Motors
+    
+    
     /**
      * The motor used to adjust the shooter's vertical aiming.
      *
@@ -34,6 +38,12 @@ public class Shooter {
      * @author SilverX
      */
     private Talon pitchMotor;
+    
+    
+    // Shooting
+    
+    private StateMachine shootingStateMachine;
+    
     /**
      * The motor used to launch a frisbee at targets
      *
@@ -42,11 +52,7 @@ public class Shooter {
      * @author AgentOrange
      */
     private Talon shootMotor;
-    /**
-     * Used to adjust pitchMotor (vertical aiming)
-     * @author AgentOrange
-     */
-    private Encoder pitchChanger = null; // TODO: yet to initialize
+    
 
     /**
      * Pneumatic arm to push frisbees into shooter
@@ -54,43 +60,21 @@ public class Shooter {
      */
     private Solenoid feeder;
     
-    private State currentState;
-    private interface State {
-        
-        void enter();
-        /**
-         * 
-         * @param shooter
-         * @return The next state
-         */
-        State handleState(Shooter shooter);
-    }
+    private State baseState = new AwaitingUserInputState(this);
     
-    private AwaitingUserInput awaitingUserInputSingleton;
-    private State toAwaitingUserInputState(){
-        if (awaitingUserInputSingleton == null)
-            awaitingUserInputSingleton = new AwaitingUserInput();
-        return awaitingUserInputSingleton;
-    }
-    private class AwaitingUserInput implements State {
-        private 
-        public State handleState(Shooter shooter){
-            return null;
-        }
-    }
-    
-    private class StopShooting implements State {
-        
-        public State handleState(Shooter shooter){
-            return toAwaitingUserInputState();
-        }
-    }
+   
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
         initializeMotors();
         feeder = new Solenoid(RobotConstants.Shooting.FEEDER_CHANNEL);
+        
+        shootingStateMachine = new StateMachine(baseState);
     }
-
+    
+    protected State getBaseState() {
+        return baseState;
+    }
+    
     /**
      * @author AgentOrange
      * @author soggy.potato
@@ -136,7 +120,13 @@ public class Shooter {
         // 4. Turn off shooting motor.
 
     }
-
+    
+    public void updateShooting() {
+        shootingStateMachine.update();
+    }
+    
+    // Util
+    
     /**
      * Reads in the user's commands for the robot.
      *
@@ -155,8 +145,4 @@ public class Shooter {
         shootMotor = new Talon(RobotConstants.Shooting.SHOOT_MOTOR);
     }
     
-    public void updateState() {
-        currentState = currentState.handleState(this);
-        currentState.enter();
-    }
 }

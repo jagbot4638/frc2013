@@ -8,6 +8,7 @@
 package org.northwestrobotics.frc2013;
 
 
+import org.northwestrobotics.frc2013.shooter.Shooter;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 
