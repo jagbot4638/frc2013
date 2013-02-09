@@ -32,7 +32,7 @@ class Driver {
     private RobotDrive robotDrive;
     
     // MOTORS
-    private SpeedController frontLeftController = new Talon(RobotConstants.Drive.FRONT_LEFT_MOTOR);
+    private SpeedController frontLeftController = new Talon(RobotConstants.Drive.FRONT_LEFT_MOTOR); // TODO: Invert 
     private SpeedController backRightController = new Talon(RobotConstants.Drive.BACK_RIGHT_MOTOR);
     
     private SpeedController frontRightController = new Victor(RobotConstants.Drive.FRONT_RIGHT_MOTOR);
@@ -68,6 +68,7 @@ class Driver {
     private void initializeRobotDrive() {
         robotDrive = new RobotDrive(frontLeftController, backLeftController, frontRightController, backRightController);
         robotDrive.setInvertedMotor(MotorType.kRearRight, false);
+        robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
         robotDrive.setMaxOutput(RobotConstants.Drive.MAX_MOTOR_SPEED);
     }
 }

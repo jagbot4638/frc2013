@@ -22,9 +22,10 @@ public class RobotConstants {
         
         //Motors
         
-        /*
-         * T1 T2
-         * V3 V4
+        /* Front
+         * T3 V4
+         * V1 T2
+         * Back
          * where T = Talon, and V = Victor
          */
         public static final int FRONT_LEFT_MOTOR = 3;
