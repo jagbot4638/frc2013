@@ -4,9 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package org.northwestrobotics.frc2013;
-
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -19,13 +17,13 @@ import edu.wpi.first.wpilibj.Joystick;
  * directory.
  */
 public class Jagbot extends IterativeRobot {
-    
+
     Joystick aimingController;
-    
+    Test tester;
     Driver driver;
     Loader loader;
     Shooter shooter;
-    
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -41,7 +39,6 @@ public class Jagbot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        
     }
 
     /**
@@ -49,16 +46,14 @@ public class Jagbot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         driver.drive();
-        
+
         //shooter.respondToUserInput();
-       // if (shooter.shootButtonPressed())
+        // if (shooter.shootButtonPressed())
         //    shooter.shoot();
     }
-    
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-    
     }
 }

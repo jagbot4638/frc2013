@@ -17,11 +17,20 @@ public class RobotConstants {
         }
         public static final double THRESHOLD = .05;
         public static final int MOVE_CONTROLLER = 1;
+        public static final double MAX_MOTOR_SPEED = .3;
+        
+        
         //Motors
-        public static final int FRONT_LEFT_MOTOR = 4;
-        public static final int FRONT_RIGHT_MOTOR = 1;
-        public static final int BACK_LEFT_MOTOR = 2;
-        public static final int BACK_RIGHT_MOTOR = 3;
+        
+        /*
+         * T1 T2
+         * V3 V4
+         * where T = Talon, and V = Victor
+         */
+        public static final int FRONT_LEFT_MOTOR = 3;
+        public static final int FRONT_RIGHT_MOTOR = 4;
+        public static final int BACK_LEFT_MOTOR = 1;
+        public static final int BACK_RIGHT_MOTOR = 2;
     }
 
     public static final class Shooting {
