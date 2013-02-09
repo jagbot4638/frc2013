@@ -19,8 +19,8 @@ public class RobotConstants {
         public static final int MOVE_CONTROLLER = 1;
         //Motors
         public static final int FRONT_LEFT_MOTOR = 4;
-        public static final int FRONT_RIGHT_MOTOR = 2;
-        public static final int BACK_LEFT_MOTOR = 1;
+        public static final int FRONT_RIGHT_MOTOR = 1;
+        public static final int BACK_LEFT_MOTOR = 2;
         public static final int BACK_RIGHT_MOTOR = 3;
     }
 

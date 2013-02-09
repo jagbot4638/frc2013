@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SimpleRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Victor;
 /**
  * @author AgentOrange
  * @author soggy.potato
@@ -36,9 +37,13 @@ class Driver {
      */
     public Driver(){
         moveStick = new Joystick(RobotConstants.Drive.MOVE_CONTROLLER);
-        robotDrive = new RobotDrive(RobotConstants.Drive.FRONT_LEFT_MOTOR,
-                RobotConstants.Drive.BACK_LEFT_MOTOR,RobotConstants.Drive.FRONT_RIGHT_MOTOR,
-                RobotConstants.Drive.BACK_RIGHT_MOTOR);
+        Talon frontLeftController = new Talon(RobotConstants.Drive.FRONT_LEFT_MOTOR);
+        Talon backRightController = new Talon(RobotConstants.Drive.BACK_RIGHT_MOTOR);
+        
+        Victor frontRightController = new Victor(RobotConstants.Drive.FRONT_RIGHT_MOTOR);
+        Victor backLeftController = new Victor(RobotConstants.Drive.BACK_LEFT_MOTOR);
+        
+        robotDrive = new RobotDrive(frontLeftController,backLeftController,frontRightController,backRightController);
     }
     
     public void drive(){
