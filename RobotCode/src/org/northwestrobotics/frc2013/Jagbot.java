@@ -50,7 +50,7 @@ public class Jagbot extends IterativeRobot {
     public void teleopPeriodic() {
         driver.drive();
         
-        shooter.respondToUserInput();
+        shooter.adjustAim();
         if (shooter.shootButtonPressed()) {
             shooter.shoot();
         }

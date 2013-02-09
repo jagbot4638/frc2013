@@ -54,6 +54,37 @@ public class Shooter {
      */
     private Solenoid feeder;
     
+    private State currentState;
+    private interface State {
+        
+        void enter();
+        /**
+         * 
+         * @param shooter
+         * @return The next state
+         */
+        State handleState(Shooter shooter);
+    }
+    
+    private AwaitingUserInput awaitingUserInputSingleton;
+    private State toAwaitingUserInputState(){
+        if (awaitingUserInputSingleton == null)
+            awaitingUserInputSingleton = new AwaitingUserInput();
+        return awaitingUserInputSingleton;
+    }
+    private class AwaitingUserInput implements State {
+        private 
+        public State handleState(Shooter shooter){
+            return null;
+        }
+    }
+    
+    private class StopShooting implements State {
+        
+        public State handleState(Shooter shooter){
+            return toAwaitingUserInputState();
+        }
+    }
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
         initializeMotors();
@@ -65,7 +96,7 @@ public class Shooter {
      * @author soggy.potato
      * Adjusts vertical aiming in accordance to user input.
      */
-    public void respondToUserInput() {
+    public void adjustAim() {
         // User uses controller to aim. Read in this user input.
         // If the y is zero pitch arm stops moving
         /*
@@ -122,5 +153,10 @@ public class Shooter {
     private void initializeMotors() {
         pitchMotor = new Talon(RobotConstants.Shooting.PITCH_MOTOR);
         shootMotor = new Talon(RobotConstants.Shooting.SHOOT_MOTOR);
+    }
+    
+    public void updateState() {
+        currentState = currentState.handleState(this);
+        currentState.enter();
     }
 }
