@@ -32,16 +32,22 @@ public final class ShootingState extends BaseShooterState {
     }
 
     public State handle() {
+        // Activate pneumatic arm. Activation has been moved
+        // to this function, so that there is a small delay between
+        // starting the motor in the enter() method and feeding
+        // the frisbee
         if (!shooter.getFeeder().get() && shouldActivateFeeder) {
             shooter.getFeeder().set(true); // Trigger pneumatic arm
             shouldActivateFeeder = false;
         }
+        
+        // Retract the pneumatic arm to the original position 
         if (motorStopTimer.get() >= RobotConstants.Shooting.FEEDER_WAIT_TIME
                 && shooter.getFeeder().get()) {
             shooter.getFeeder().set(false); // Retract the pneumatic arm
         }
         
-        // Check whether the timer has expired
+        // Stop the motor when motor deactivation time has been reached
         if (motorStopTimer.get() >= RobotConstants.Shooting.SHOOT_MOTOR_DEACTIVATION_TIME) {
             shooter.getShootMotor().set(0); // Stop the shoot motor
             return shooter.getAwaitingUserInputState(); // Switch back to awaiting user input
