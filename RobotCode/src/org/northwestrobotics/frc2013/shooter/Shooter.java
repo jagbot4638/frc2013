@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.MotorSafetyHelper;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import org.northwestrobotics.frc2013.RobotConstants;
@@ -32,7 +33,7 @@ public final class Shooter {
      * @author soggy.potato
      * @author SilverX
      */
-    private final Talon pitchMotor = new Talon(RobotConstants.Shooting.PITCH_MOTOR);
+    private final SpeedController pitchMotor = new Talon(RobotConstants.Shooting.PITCH_MOTOR);
     
     
     // Shooting
@@ -45,7 +46,7 @@ public final class Shooter {
      * @author SilverX
      * @author AgentOrange
      */
-    private final Talon shootMotor = new Talon(RobotConstants.Shooting.SHOOT_MOTOR);
+    private final SpeedController shootMotor = new Talon(RobotConstants.Shooting.SHOOT_MOTOR);
     
 
     /**
@@ -108,7 +109,7 @@ public final class Shooter {
     }
     
     // Util
-    Talon getShootMotor() {
+    SpeedController getShootMotor() {
         return shootMotor;
     }
 

@@ -16,20 +16,28 @@ import org.northwestrobotics.frc2013.State;
  */
 public final class ShootingState extends BaseShooterState {
     Timer motorStopTimer = new Timer();
+    boolean shouldActivateFeeder = true;
+    
     public ShootingState(Shooter shooter) {
         super(shooter);
     }
     public void enter() {
+        shouldActivateFeeder = true;
         motorStopTimer.reset(); // Reset the timer
         // Start shoot motor
         shooter.getShootMotor().set(RobotConstants.Shooting.SHOOT_MOTOR_SPEED);
         
-        shooter.getFeeder().set(true); // Trigger pneumatic arm
+        
         
     }
 
     public State handle() {
-        if (motorStopTimer.get() >= RobotConstants.Shooting.FEEDER_WAIT_TIME) {
+        if (!shooter.getFeeder().get() && shouldActivateFeeder) {
+            shooter.getFeeder().set(true); // Trigger pneumatic arm
+            shouldActivateFeeder = false;
+        }
+        if (motorStopTimer.get() >= RobotConstants.Shooting.FEEDER_WAIT_TIME
+                && shooter.getFeeder().get()) {
             shooter.getFeeder().set(false); // Retract the pneumatic arm
         }
         
