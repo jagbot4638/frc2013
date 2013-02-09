@@ -21,7 +21,7 @@ import org.northwestrobotics.frc2013.StateMachine;
  * @author SilverX
  * @author AgentOrange
  */
-public class Shooter {
+public final class Shooter {
     // Aiming
     private Joystick aimingStick;
     // Joystick buttons
@@ -62,6 +62,7 @@ public class Shooter {
     
     private State baseState = new AwaitingUserInputState(this);
     
+    private State shootingState = new ShootingState(this);
    
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
@@ -73,6 +74,9 @@ public class Shooter {
     
     protected State getBaseState() {
         return baseState;
+    }
+    protected State getShootingState() {
+        return shootingState;
     }
     
     /**
@@ -99,7 +103,7 @@ public class Shooter {
      *
      * @author soggy.potato
      */
-    public boolean shootButtonPressed() {
+    protected boolean shootButtonPressed() {
         return shootButton;
     }
 
@@ -143,6 +147,14 @@ public class Shooter {
     private void initializeMotors() {
         pitchMotor = new Talon(RobotConstants.Shooting.PITCH_MOTOR);
         shootMotor = new Talon(RobotConstants.Shooting.SHOOT_MOTOR);
+    }
+
+    Talon getShootMotor() {
+        return shootMotor;
+    }
+
+    Solenoid getFeeder() {
+        return feeder;
     }
     
 }

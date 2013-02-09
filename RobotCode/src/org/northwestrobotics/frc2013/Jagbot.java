@@ -52,9 +52,7 @@ public class Jagbot extends IterativeRobot {
         driver.drive();
         
         shooter.adjustAim();
-        if (shooter.shootButtonPressed()) {
-            shooter.shoot();
-        }
+        shooter.updateShooting();
     }
     
     /**

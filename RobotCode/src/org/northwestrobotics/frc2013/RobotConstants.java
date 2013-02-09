@@ -49,17 +49,11 @@ public class RobotConstants {
          * @author AgentOrange
          */
         public static final double FEEDER_WAIT_TIME = 2;
-    }
-
-    public static final class Loader {
-
-        private Loader() {
-        }
-        public static final boolean MAX_PRESSURE = false;
-        public static final int SUCKTIONCUP = 9;
-        public static final int ARMRETRACTOR = 9;
-        public static final int AIRCOMPRESSOR = 9;
-        public static final int ARM = 9;
-        public static final int COUNTER = 56;
+        // soggy.potato
+        public static final double SHOOT_MOTOR_SPEED = 1;
+        
+        public static final double PNEUMATIC_ARM_DEACTIVATION_TIME = 1;// second
+        
+        public static final double SHOOT_MOTOR_DEACTIVATION_TIME = 3;// seconds
     }
 }
