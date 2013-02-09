@@ -5,17 +5,20 @@
 package org.northwestrobotics.frc2013;
 
 /**
- *
- * @author Saagar
+ * Represents a state of a state machine. It also is responsible for responding to being in the state.
+ * @author soggy.potato
  */
 public interface State {
-
+    /**
+     * This method is called when the state machine enters the state.
+     * @author soggy.potato
+     */
     void enter();
 
     /**
-     *
-     * @param shooter
-     * @return The next state
+     * Handles any state interactions.
+     * @author soggy.potato
+     * @return The next state for the state machine
      */
     State handle();
 }

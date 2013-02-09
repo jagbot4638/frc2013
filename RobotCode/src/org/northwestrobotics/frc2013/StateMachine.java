@@ -6,11 +6,15 @@ package org.northwestrobotics.frc2013;
 
 /**
  *
- * @author Saagar
+ * @author soggy.potato
  */
 public class StateMachine {
     private State current;
-    
+    /**
+     * Creates a state machine.
+     * @param initial The state the state machine starts at.
+     * @author soggy.potato
+     */
     public StateMachine(State initial) {
         current = initial;
     }
