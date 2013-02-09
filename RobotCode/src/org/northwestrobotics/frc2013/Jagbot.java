@@ -8,6 +8,7 @@ package org.northwestrobotics.frc2013;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -19,7 +20,6 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Jagbot extends IterativeRobot {
 
     Joystick aimingController;
-    Test tester;
     Driver driver;
     Loader loader;
     Shooter shooter;
@@ -45,15 +45,19 @@ public class Jagbot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+
+
         driver.drive();
 
         //shooter.respondToUserInput();
         // if (shooter.shootButtonPressed())
         //    shooter.shoot();
     }
+
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
+        driver.test();
     }
 }

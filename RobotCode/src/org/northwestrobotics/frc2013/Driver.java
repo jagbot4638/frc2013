@@ -19,8 +19,10 @@ import edu.wpi.first.wpilibj.Victor;
  * @author RG3
  */
 class Driver {
+
     /**
      * Joystick responsible for the user control of driving.
+     *
      * @author soggy.potato
      */
     private Joystick moveStick;
@@ -30,11 +32,9 @@ class Driver {
      * @author soggy.potato
      */
     private RobotDrive robotDrive;
-    
     // MOTORS
     private SpeedController frontLeftController = new Talon(RobotConstants.Drive.FRONT_LEFT_MOTOR); // TODO: Invert 
     private SpeedController backRightController = new Talon(RobotConstants.Drive.BACK_RIGHT_MOTOR);
-    
     private SpeedController frontRightController = new Victor(RobotConstants.Drive.FRONT_RIGHT_MOTOR);
     private SpeedController backLeftController = new Victor(RobotConstants.Drive.BACK_LEFT_MOTOR);
 
@@ -53,7 +53,6 @@ class Driver {
         move();
     }
 
-    
     /**
      * Move the robot motors in accordance with the user's input.
      *
@@ -63,12 +62,38 @@ class Driver {
         robotDrive.arcadeDrive(moveStick);
     }
 
-    
+    public void test() {
+        if (moveStick.getRawButton(RobotConstants.TestDrive.ACTIVATE_FRONT_LEFT_MOTOR_BUTTON)) {
+            frontLeftController.set(1);
+        } else {
+            frontLeftController.set(0);
+        }
+        
+        if (moveStick.getRawButton(RobotConstants.TestDrive.ACTIVATE_FRONT_RIGHT_MOTOR_BUTTON)) {
+            frontRightController.set(1);
+        } else {
+            frontRightController.set(0);
+        }
+        
+        if (moveStick.getRawButton(RobotConstants.TestDrive.ACTIVATE_BACK_LEFT_MOTOR_BUTTON)) {
+            backLeftController.set(1);
+        } else {
+            backLeftController.set(0);
+        }
+        
+        if (moveStick.getRawButton(RobotConstants.TestDrive.ACTIVATE_BACK_RIGHT_MOTOR_BUTTON)) {
+            backRightController.set(1);
+        } else {
+            backRightController.set(0);
+        }
+    }
 
     private void initializeRobotDrive() {
         robotDrive = new RobotDrive(frontLeftController, backLeftController, frontRightController, backRightController);
-        robotDrive.setInvertedMotor(MotorType.kRearRight, false);
-        robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
+        robotDrive.setInvertedMotor(MotorType.kRearRight, true);// original
+        robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+        robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
+        robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);// original
         robotDrive.setMaxOutput(RobotConstants.Drive.MAX_MOTOR_SPEED);
     }
 }

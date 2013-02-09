@@ -17,11 +17,8 @@ public class RobotConstants {
         }
         public static final double THRESHOLD = .05;
         public static final int MOVE_CONTROLLER = 1;
-        public static final double MAX_MOTOR_SPEED = .3;
-        
-        
+        public static final double MAX_MOTOR_SPEED = 1;
         //Motors
-        
         /* Front
          * T3 V4
          * V1 T2
@@ -61,5 +58,15 @@ public class RobotConstants {
         public static final int AIRCOMPRESSOR = 9;
         public static final int ARM = 9;
         public static final int COUNTER = 56;
+    }
+
+    public static final class TestDrive {
+
+        private TestDrive() {
+        }
+        public static final int ACTIVATE_FRONT_LEFT_MOTOR_BUTTON = 6;
+        public static final int ACTIVATE_FRONT_RIGHT_MOTOR_BUTTON = 11;
+        public static final int ACTIVATE_BACK_LEFT_MOTOR_BUTTON = 7;
+        public static final int ACTIVATE_BACK_RIGHT_MOTOR_BUTTON = 10;
     }
 }
