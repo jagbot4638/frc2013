@@ -23,12 +23,7 @@ import org.northwestrobotics.frc2013.StateMachine;
  */
 public final class Shooter {
     // Aiming
-    private Joystick aimingStick;
-    // Joystick buttons
-    /**
-     * The state of the button, which is pressed to active launching.
-     */
-    private boolean shootButton = false;//creates and indicator for the pressing of button
+    private final Joystick aimingStick;
     
     
     /**
@@ -37,7 +32,7 @@ public final class Shooter {
      * @author soggy.potato
      * @author SilverX
      */
-    private Talon pitchMotor = new Talon(RobotConstants.Shooting.PITCH_MOTOR);
+    private final Talon pitchMotor = new Talon(RobotConstants.Shooting.PITCH_MOTOR);
     
     
     // Shooting
@@ -50,23 +45,23 @@ public final class Shooter {
      * @author SilverX
      * @author AgentOrange
      */
-    private Talon shootMotor = new Talon(RobotConstants.Shooting.SHOOT_MOTOR);
+    private final Talon shootMotor = new Talon(RobotConstants.Shooting.SHOOT_MOTOR);
     
 
     /**
      * Pneumatic arm to push frisbees into shooter
      * @author AgentOrange
      */
-    private Solenoid feeder = new Solenoid(RobotConstants.Shooting.FEEDER_CHANNEL);
+    private final Solenoid feeder = new Solenoid(RobotConstants.Shooting.FEEDER_CHANNEL);
     
     // STATE MACHINE
     
     // States
-    private State awaitingUserInputState = new AwaitingUserInputState(this);
-    private State shootingState = new ShootingState(this);
+    private final State awaitingUserInputState = new AwaitingUserInputState(this);
+    private final State shootingState = new ShootingState(this);
     
     // Machine
-    private StateMachine shootingStateMachine = new StateMachine(awaitingUserInputState);
+    private final StateMachine shootingStateMachine = new StateMachine(awaitingUserInputState);
    
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
@@ -92,7 +87,7 @@ public final class Shooter {
          * from testing. Perform a range check before calling the set method.
          * May have to change sign.
          */
-        double pitchAdjustment = aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
+        final double pitchAdjustment = aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
         pitchMotor.set(pitchAdjustment);
         
     }

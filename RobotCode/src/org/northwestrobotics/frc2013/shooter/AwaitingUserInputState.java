@@ -12,7 +12,7 @@ import org.northwestrobotics.frc2013.State;
  *
  * @author soggy.potato
  */
-public class AwaitingUserInputState extends ShooterState {
+public final class AwaitingUserInputState extends BaseShooterState {
 
     public AwaitingUserInputState(Shooter shooter) {
         super(shooter);

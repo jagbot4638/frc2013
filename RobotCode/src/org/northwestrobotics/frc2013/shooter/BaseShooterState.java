@@ -10,10 +10,10 @@ import org.northwestrobotics.frc2013.State;
  *
  * @author Saagar
  */
-public abstract class ShooterState implements State {
+abstract class BaseShooterState implements State {
     protected final Shooter shooter;
     
-    public ShooterState(Shooter shooter) {
+    public BaseShooterState(Shooter shooter) {
         this.shooter = shooter;
     }
     
