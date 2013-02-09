@@ -37,45 +37,45 @@ public final class Shooter {
      * @author soggy.potato
      * @author SilverX
      */
-    private Talon pitchMotor;
+    private Talon pitchMotor = new Talon(RobotConstants.Shooting.PITCH_MOTOR);
     
     
     // Shooting
     
-    private StateMachine shootingStateMachine;
+    
     
     /**
-     * The motor used to launch a frisbee at targets
-     *
+     * The motor used to launch a frisbee at targets.
      * @author soggy.potato
      * @author SilverX
      * @author AgentOrange
      */
-    private Talon shootMotor;
+    private Talon shootMotor = new Talon(RobotConstants.Shooting.SHOOT_MOTOR);
     
 
     /**
      * Pneumatic arm to push frisbees into shooter
      * @author AgentOrange
      */
-    private Solenoid feeder;
+    private Solenoid feeder = new Solenoid(RobotConstants.Shooting.FEEDER_CHANNEL);
     
-    private State baseState = new AwaitingUserInputState(this);
+    // STATE MACHINE
     
+    // States
+    private State awaitingUserInputState = new AwaitingUserInputState(this);
     private State shootingState = new ShootingState(this);
+    
+    // Machine
+    private StateMachine shootingStateMachine = new StateMachine(awaitingUserInputState);
    
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
-        initializeMotors();
-        feeder = new Solenoid(RobotConstants.Shooting.FEEDER_CHANNEL);
-        
-        shootingStateMachine = new StateMachine(baseState);
     }
     
-    protected State getBaseState() {
-        return baseState;
+    State getAwaitingUserInputState() {
+        return awaitingUserInputState;
     }
-    protected State getShootingState() {
+    State getShootingState() {
         return shootingState;
     }
     
@@ -92,7 +92,7 @@ public final class Shooter {
          * from testing. Perform a range check before calling the set method.
          * May have to change sign.
          */
-        double pitchAdjustment = readUserInput() * RobotConstants.Shooting.PITCH_FACTOR;
+        double pitchAdjustment = aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
         pitchMotor.set(pitchAdjustment);
         
     }
@@ -103,26 +103,9 @@ public final class Shooter {
      *
      * @author soggy.potato
      */
-    protected boolean shootButtonPressed() {
-        return shootButton;
-    }
-
-    /**
-     * Fires a frisbee.
-     */
-    public void shoot() {
-        // 1. Start shooter motor
-        // 2. Trigger the pneumatic arm to move frisbee into shooter
-        feeder.set(true);
-        
-        Timer.delay(RobotConstants.Shooting.FEEDER_WAIT_TIME);
-        
-        
-        // 3. Retract arm (maybe automatic)
-        feeder.set(false);
-        
-        // 4. Turn off shooting motor.
-
+    boolean isShootButtonPressed() {
+        // Determine whether the shoot button is pressed or not.
+        return aimingStick.getRawButton(RobotConstants.Shooting.SHOOT_BUTTON);
     }
     
     public void updateShooting() {
@@ -130,25 +113,6 @@ public final class Shooter {
     }
     
     // Util
-    
-    /**
-     * Reads in the user's commands for the robot.
-     *
-     * @return The pitch adjustment from the aiming joystick.
-     */
-    private double readUserInput() {
-        shootButton = aimingStick.getRawButton(RobotConstants.Shooting.SHOOT_BUTTON); // Determine whether the shoot button is pressed or not
-        return aimingStick.getY(); // Get the input for adjustment to the pitch, which is the only thing we can control.
-    }
-
-    /**
-     * Sets up the motors for use.
-     */
-    private void initializeMotors() {
-        pitchMotor = new Talon(RobotConstants.Shooting.PITCH_MOTOR);
-        shootMotor = new Talon(RobotConstants.Shooting.SHOOT_MOTOR);
-    }
-
     Talon getShootMotor() {
         return shootMotor;
     }
