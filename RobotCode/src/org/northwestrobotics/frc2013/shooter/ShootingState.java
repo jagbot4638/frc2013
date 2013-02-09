@@ -50,6 +50,7 @@ public final class ShootingState extends BaseShooterState {
         // Stop the motor when motor deactivation time has been reached
         if (motorStopTimer.get() >= RobotConstants.Shooting.SHOOT_MOTOR_DEACTIVATION_TIME) {
             shooter.getShootMotor().set(0); // Stop the shoot motor
+            motorStopTimer.stop();
             return shooter.getAwaitingUserInputState(); // Switch back to awaiting user input
         }   
         return this; // Stay on this state because it is not time to stop the shoot motor
