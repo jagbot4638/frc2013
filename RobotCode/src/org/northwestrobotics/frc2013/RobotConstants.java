@@ -17,13 +17,7 @@ public class RobotConstants {
         }
         public static final double THRESHOLD = .05;
         public static final int MOVE_CONTROLLER = 1;
-<<<<<<< HEAD
-        //Motors
-        public static final int FRONT_LEFT_MOTOR = 1;
-        public static final int FRONT_RIGHT_MOTOR = 2;
-        public static final int BACK_LEFT_MOTOR = 3;
-        public static final int BACK_RIGHT_MOTOR = 4;
-=======
+
         public static final double MAX_MOTOR_SPEED = 1;
         //Motors
         /* Front
@@ -36,7 +30,6 @@ public class RobotConstants {
         public static final int FRONT_RIGHT_MOTOR = 4;
         public static final int BACK_LEFT_MOTOR = 1;
         public static final int BACK_RIGHT_MOTOR = 2;
->>>>>>> origin/master
     }
 
     public static final class Shooting {
@@ -49,7 +42,6 @@ public class RobotConstants {
         public static final int AIM_DOWN_BUTTON = 2;
         public static final int AIM_UP_BUTTON = 3;
         // Motors
-<<<<<<< HEAD
         public static final int PITCH_MOTOR = 6;
         public static final int SHOOT_MOTOR = 5;
         // Shoot
@@ -72,12 +64,6 @@ public class RobotConstants {
         
         
         public static final double SHOOT_MOTOR_DEACTIVATION_TIME = 3;// seconds
-=======
-        public static final int PITCH_MOTOR = 5;
-        public static final int SHOOT_MOTOR = 6;
-        // Shoot
-        public static final double EXPIRATION_TIME = 10;
-        public static final double MOTOR_SPEED = .5;
     }
 
     public static final class Loader {
@@ -100,6 +86,5 @@ public class RobotConstants {
         public static final int ACTIVATE_FRONT_RIGHT_MOTOR_BUTTON = 11;
         public static final int ACTIVATE_BACK_LEFT_MOTOR_BUTTON = 7;
         public static final int ACTIVATE_BACK_RIGHT_MOTOR_BUTTON = 10;
->>>>>>> origin/master
     }
 }
