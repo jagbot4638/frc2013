@@ -34,8 +34,8 @@ public class RobotConstants {
         public static final int AIM_DOWN_BUTTON = 2;
         public static final int AIM_UP_BUTTON = 3;
         // Motors
-        public static final int PITCH_MOTOR = 5;
-        public static final int SHOOT_MOTOR = 6;
+        public static final int PITCH_MOTOR = 6;
+        public static final int SHOOT_MOTOR = 5;
         // Shoot
         public static final double EXPIRATION_TIME = 10;
         public static final double MOTOR_SPEED = .5;
@@ -51,6 +51,7 @@ public class RobotConstants {
          */
         public static final double FEEDER_WAIT_TIME = 1;// second
         // soggy.potato
+        // TODO: Finalize the motor speed
         public static final double SHOOT_MOTOR_SPEED = 1;
         
         

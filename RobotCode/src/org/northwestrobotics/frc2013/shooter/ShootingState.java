@@ -40,10 +40,11 @@ public final class ShootingState extends BaseShooterState {
             shooter.getFeeder().set(true); // Trigger pneumatic arm
             shouldActivateFeeder = false;
         }
-        
+       
         // Retract the pneumatic arm to the original position 
         if (motorStopTimer.get() >= RobotConstants.Shooting.FEEDER_WAIT_TIME
                 && shooter.getFeeder().get()) {
+            // TODO: may not have to do this as it is autoretract.
             shooter.getFeeder().set(false); // Retract the pneumatic arm
         }
         

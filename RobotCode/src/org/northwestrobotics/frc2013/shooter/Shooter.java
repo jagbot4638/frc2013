@@ -24,6 +24,9 @@ import org.northwestrobotics.frc2013.StateMachine;
  */
 public final class Shooter {
     // Aiming
+    /**
+     * The joystick for obtaining aiming and shooting input.
+     */
     private final Joystick aimingStick;
     
     
