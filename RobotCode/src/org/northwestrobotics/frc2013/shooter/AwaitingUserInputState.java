@@ -4,6 +4,7 @@
  */
 package org.northwestrobotics.frc2013.shooter;
 
+import edu.wpi.first.wpilibj.DriverStationLCD;
 import org.northwestrobotics.frc2013.State;
 
 /**
@@ -19,6 +20,8 @@ public final class AwaitingUserInputState extends BaseShooterState {
     }
 
     public void enter() {
+        
+        
     }
 
     public State handle() {

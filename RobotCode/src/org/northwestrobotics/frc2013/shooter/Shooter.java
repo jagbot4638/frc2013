@@ -4,6 +4,7 @@
  */
 package org.northwestrobotics.frc2013.shooter;
 
+import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.MotorSafetyHelper;
@@ -24,12 +25,11 @@ import org.northwestrobotics.frc2013.StateMachine;
  */
 public final class Shooter {
     // Aiming
+
     /**
      * The joystick for obtaining aiming and shooting input.
      */
     private final Joystick aimingStick;
-    
-    
     /**
      * The motor used to adjust the shooter's vertical aiming.
      *
@@ -37,51 +37,43 @@ public final class Shooter {
      * @author SilverX
      */
     private final SpeedController pitchMotor = new Talon(RobotConstants.Shooting.PITCH_MOTOR);
-    
-    
     // Shooting
-    
-    
-    
     /**
      * The motor used to launch a frisbee at targets.
+     *
      * @author soggy.potato
      * @author SilverX
      * @author AgentOrange
      */
     private final SpeedController shootMotor = new Talon(RobotConstants.Shooting.SHOOT_MOTOR);
-    
-
     /**
      * Pneumatic arm to push frisbees into shooter
+     *
      * @author AgentOrange
      */
     private final Solenoid feeder = new Solenoid(RobotConstants.Shooting.FEEDER_CHANNEL);
-    
     // STATE MACHINE
-    
     // States
     private final State awaitingUserInputState = new AwaitingUserInputState(this);
     private final State shootingState = new ShootingState(this);
-    
     // Machine
     private final StateMachine shootingStateMachine = new StateMachine(awaitingUserInputState);
-   
+
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
     }
-    
+
     State getAwaitingUserInputState() {
         return awaitingUserInputState;
     }
+
     State getShootingState() {
         return shootingState;
     }
-    
+
     /**
      * @author AgentOrange
-     * @author soggy.potato
-     * Adjusts vertical aiming in accordance to user input.
+     * @author soggy.potato Adjusts vertical aiming in accordance to user input.
      */
     public void adjustAim() {
         // User uses controller to aim. Read in this user input.
@@ -93,12 +85,11 @@ public final class Shooter {
          */
         final double pitchAdjustment = aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
         pitchMotor.set(pitchAdjustment);
-        
+
     }
 
     /**
-     * Determines whether the driver has commanded the robot to shoot a
-     * frisbee.
+     * Determines whether the driver has commanded the robot to shoot a frisbee.
      *
      * @author soggy.potato
      */
@@ -106,11 +97,28 @@ public final class Shooter {
         // Determine whether the shoot button is pressed or not.
         return aimingStick.getRawButton(RobotConstants.Shooting.SHOOT_BUTTON);
     }
-    
+
     public void updateShooting() {
         shootingStateMachine.update();
+        if (shouldToggleShooterMotor()) {
+            
+            toggleShootMotor();
+        }
     }
-    
+
+    private void toggleShootMotor() {
+        
+        
+        if (shootMotor.get() == 0) {
+            shootMotor.set(RobotConstants.Shooting.SHOOT_MOTOR_SPEED);            
+         //   print("Shooting motor is activated");
+        } else {
+            shootMotor.set(0);
+           // print("Shooting motor is deactivated");
+        }
+      
+    }
+
     // Util
     SpeedController getShootMotor() {
         return shootMotor;
@@ -118,6 +126,14 @@ public final class Shooter {
 
     Solenoid getFeeder() {
         return feeder;
+    }
+    private boolean previousButtonState = false;
+
+    private boolean shouldToggleShooterMotor() {
+        boolean currentButtonState = aimingStick.getRawButton(RobotConstants.Shooting.TOGGLE_SHOOT_MOTOR_BUTTON);
+        boolean result = previousButtonState && !currentButtonState;
+        previousButtonState = currentButtonState;
+        return result;
     }
     
 }

@@ -4,6 +4,7 @@
  */
 package org.northwestrobotics.frc2013;
 
+import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 
@@ -21,14 +22,15 @@ import edu.wpi.first.wpilibj.Victor;
  */
 class Driver {
 
-
     /**
      * Joystick responsible for the user control of driving.
+     *
      * @author soggy.potato
      */
     private Joystick moveStick = new Joystick(RobotConstants.Drive.MOVE_CONTROLLER);
     /**
      * The object called for arcade drive
+     *
      * @author soggy.potato
      */
     private RobotDrive robotDrive;
@@ -37,7 +39,6 @@ class Driver {
     private SpeedController backRightController = new Talon(RobotConstants.Drive.BACK_RIGHT_MOTOR);
     private SpeedController frontRightController = new Victor(RobotConstants.Drive.FRONT_RIGHT_MOTOR);
     private SpeedController backLeftController = new Victor(RobotConstants.Drive.BACK_LEFT_MOTOR);
-
 
     public Driver() {
         initializeRobotDrive();
@@ -54,6 +55,11 @@ class Driver {
      */
     private void move() {
         robotDrive.arcadeDrive(moveStick);
+        DriverStationLCD test = DriverStationLCD.getInstance();
+        test.println(DriverStationLCD.Line.kUser3, 1, String.valueOf(moveStick.getAxis(Joystick.AxisType.kX)));
+        test.updateLCD();
+
+
     }
 
     public void test() {
@@ -62,19 +68,19 @@ class Driver {
         } else {
             frontLeftController.set(0);
         }
-        
+
         if (moveStick.getRawButton(RobotConstants.TestDrive.ACTIVATE_FRONT_RIGHT_MOTOR_BUTTON)) {
             frontRightController.set(1);
         } else {
             frontRightController.set(0);
         }
-        
+
         if (moveStick.getRawButton(RobotConstants.TestDrive.ACTIVATE_BACK_LEFT_MOTOR_BUTTON)) {
             backLeftController.set(1);
         } else {
             backLeftController.set(0);
         }
-        
+
         if (moveStick.getRawButton(RobotConstants.TestDrive.ACTIVATE_BACK_RIGHT_MOTOR_BUTTON)) {
             backRightController.set(1);
         } else {

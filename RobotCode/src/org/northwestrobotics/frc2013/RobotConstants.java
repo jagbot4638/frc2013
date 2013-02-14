@@ -39,7 +39,7 @@ public class RobotConstants {
         public static final int AIMING_CONTROLLER = 2;
         // on Controller 2
         public static final int SHOOT_BUTTON = 1;
-        public static final int AIM_DOWN_BUTTON = 2;
+        public static final int TOGGLE_SHOOT_MOTOR_BUTTON = 2;
         public static final int AIM_UP_BUTTON = 3;
         // Motors
         public static final int PITCH_MOTOR = 6;
@@ -47,10 +47,10 @@ public class RobotConstants {
         // Shoot
         public static final double EXPIRATION_TIME = 10;
         public static final double MOTOR_SPEED = .5;
-        public static final double PITCH_FACTOR = .2;
+        public static final double PITCH_FACTOR = .5;
         
         // Feeder
-        public static final int FEEDER_CHANNEL = 1;
+        public static final int FEEDER_CHANNEL = 7;
         
         /**
          * Amount of time to wait to retract the arm
