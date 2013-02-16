@@ -151,14 +151,14 @@ public final class Shooter {
     
     /**
      * Adjusts the shooter so that it is aiming at the given angle.
-     * @param ? The angle to put the shooter at in radians
+     * @param angle The angle to put the shooter at in degrees
      * @author soggy.potato
      * @author AgentOrange
      */
-    public void setAngle(double ?) {
-        double ?? = ? - getAngle();
+    public void setAngle(double angle) {
+        double deltaAngle = angle - getAngle();
         
-        double motorOutput = convertToMotorOutput(??);
+        double motorOutput = convertToMotorOutput(deltaAngle);
         
         pitchMotor.set(motorOutput);
         
@@ -173,7 +173,7 @@ public final class Shooter {
         return 0.0;
     }
 
-    private double convertToMotorOutput(double ??) {
+    private double convertToMotorOutput(double deltaAngle) {
         // TODO
         return 0.0;
     }
