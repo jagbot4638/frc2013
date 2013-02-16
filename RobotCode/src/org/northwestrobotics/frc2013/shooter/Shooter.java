@@ -42,6 +42,7 @@ public final class Shooter {
     // Shooting
     /**
      * The motor used to launch a frisbee at targets.
+     *
      * @author soggy.potato
      * @author SilverX
      * @author AgentOrange
@@ -62,11 +63,7 @@ public final class Shooter {
     private final State shootingState = new ShootingState(this);
     // Machine
     private final StateMachine shootingStateMachine = new StateMachine(awaitingUserInputState);
-    
-    
-    
-    
-    
+
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
     }
@@ -111,7 +108,7 @@ public final class Shooter {
         if (isActivateShootMotorButtonPressed()) {
             SmartDashboard.putNumber("Voltage", angle.getAngle());
             shootMotor.set(getShootMotorSpeed());
-            
+
         } else {
             shootMotor.set(0);
         }
@@ -127,7 +124,6 @@ public final class Shooter {
 
     }
 
-   
     // Util
     SpeedController getShootMotor() {
         return shootMotor;
@@ -136,36 +132,36 @@ public final class Shooter {
     Solenoid getFeeder() {
         return feeder;
     }
-    
+
     private double getShootMotorSpeed() {
         return Math.abs(aimingStick.getAxis(Joystick.AxisType.kZ));
     }
-    
+
     private boolean isActivateShootMotorButtonPressed() {
         return aimingStick.getRawButton(RobotConstants.Shooting.TOGGLE_SHOOT_MOTOR_BUTTON);
     }
-    
     //ANGLING STUFF
-    private Potentiometer angle=new Potentiometer(RobotConstants.Shooting.POTENTIOMETER);
-    
-    
+    private Potentiometer angle = new Potentiometer(RobotConstants.Shooting.POTENTIOMETER);
+
     /**
      * Adjusts the shooter so that it is aiming at the given angle.
+     *
      * @param angle The angle to put the shooter at in degrees
      * @author soggy.potato
      * @author AgentOrange
      */
     public void setAngle(double angle) {
         double deltaAngle = angle - getAngle();
-        
+
         double motorOutput = convertToMotorOutput(deltaAngle);
-        
+
         pitchMotor.set(motorOutput);
-        
+
     }
-    
+
     /**
      * Gets the shooter's angle from the ground.
+     *
      * @return The shooter's angle from the ground
      */
     private double getAngle() {
