@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.Joystick;
  * directory.
  */
 public class Jagbot extends IterativeRobot {
-
+    
     private Joystick aimingController;
     private Driver driver;
     private Shooter shooter;
@@ -31,6 +31,13 @@ public class Jagbot extends IterativeRobot {
         driver = new Driver();
         aimingController = new Joystick(RobotConstants.Shooting.AIMING_CONTROLLER);
         shooter = new Shooter(aimingController);
+        BatterySensor batterySensor = new BatterySensor(ROBOT_TASK_PRIORITY, ERRORS_TO_DRIVERSTATION_PROP);
+        final DecimalData display = new DecimalData("Battery voltage");
+        batterySensor.addBatteryVoltageListener(new BatteryVoltageListener() {
+            public void batteryVoltageChanged(BatteryVoltageEvent ev) {
+                display.setData(ev.getVoltage());
+            }
+        });
     }
 
     /**
