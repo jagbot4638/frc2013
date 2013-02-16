@@ -65,7 +65,7 @@ public final class Shooter {
 
     
     public Potentiometer angleReader
-            = new Potentiometer(RobotConstants.Shooting.ANGLE_READER_CHANNEL);
+           = new Potentiometer(RobotConstants.Shooting.ANGLE_READER_CHANNEL);
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
     }
@@ -112,16 +112,17 @@ public final class Shooter {
         } else {
             shootMotor.set(0);
         }
-        DriverStationLCD lcd = DriverStationLCD.getInstance();
-        lcd.println(DriverStationLCD.Line.kUser3, 0, new Double(angleReader.getAngle()).toString());
-        lcd.updateLCD();
+        //Double angle = new Double(angleReader.getAngle());
+        //DriverStationLCD lcd = DriverStationLCD.getInstance();
+        //lcd.println(DriverStationLCD.Line.kUser3, 0, angle.toString());
+        //lcd.updateLCD();
     }
 
     private void toggleShootMotor() {
 
 
         //if (shootMotor.get() == 0) {
-        shootMotor.set(Math.abs(aimingStick.getAxis(Joystick.AxisType.kZ)));
+        shootMotor.set(Math.abs(angleReader.getAngle()));
         //   print("Shooting motor is activated");
         //} else {
         //shootMotor.set(0);
@@ -162,6 +163,6 @@ public final class Shooter {
     }
 
     private double getShootMotorSpeed() {
-        return Math.abs(aimingStick.getAxis(Joystick.AxisType.kZ));
+        return Math.abs(angleReader.getAngle());
     }
 }

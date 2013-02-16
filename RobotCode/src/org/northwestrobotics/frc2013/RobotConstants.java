@@ -64,7 +64,7 @@ public class RobotConstants {
         public static final double SHOOT_MOTOR_DEACTIVATION_TIME = 3;// seconds
         
         
-        public static int ANGLE_READER_CHANNEL = 8;
+        public static int ANGLE_READER_CHANNEL = 1;
     
     //pneumatics Addons
     public static final boolean MAX_PRESSURE = true;
