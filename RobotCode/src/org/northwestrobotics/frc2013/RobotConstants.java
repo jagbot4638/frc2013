@@ -70,7 +70,7 @@ public class RobotConstants {
          * @author AgentOrange
          * @author soggy.potato
          */
-        public static final double FEEDER_WAIT_TIME = 1;// second
+        public static final double FEEDER_WAIT_TIME = 1000000;// micro second
     }
 
     public static final class Loader {

@@ -77,8 +77,9 @@ public final class Shooter {
     }
 
     /**
+     * Adjusts vertical aiming in accordance to user input.
      * @author AgentOrange
-     * @author soggy.potato Adjusts vertical aiming in accordance to user input.
+     * @author soggy.potato
      */
     public void adjustAim() {
         // User uses controller to aim. Read in this user input.
@@ -95,7 +96,6 @@ public final class Shooter {
 
     /**
      * Determines whether the driver has commanded the robot to shoot a frisbee.
-     *
      * @author soggy.potato
      */
     boolean isShootButtonPressed() {
