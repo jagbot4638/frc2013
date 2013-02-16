@@ -4,6 +4,7 @@
  */
 package org.northwestrobotics.frc2013.shooter;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -46,12 +47,15 @@ public final class Shooter {
      * @author AgentOrange
      */
     private final SpeedController shootMotor = new Talon(RobotConstants.Shooting.SHOOT_MOTOR);
+    // PNEUMATICS
     /**
      * Pneumatic arm to push frisbees into shooter
      *
      * @author AgentOrange
      */
-    private final Solenoid feeder = new Solenoid(RobotConstants.Shooting.FEEDER_CHANNEL);
+    private final Solenoid feeder = new Solenoid(RobotConstants.Pneumatics.FEEDER_CHANNEL);
+    private final Compressor airCompressor = new Compressor(RobotConstants.Pneumatics.PRESSURE_SWITCH_VALUE,
+            RobotConstants.Pneumatics.COMPRESSOR_RELAY);
     // STATE MACHINE
     // States
     private final State awaitingUserInputState = new AwaitingUserInputState(this);
@@ -100,25 +104,24 @@ public final class Shooter {
 
     public void updateShooting() {
         shootingStateMachine.update();
-        if (shouldToggleShooterMotor()) {
-            
-            toggleShootMotor();
-        }
-    }
-
-    private void toggleShootMotor() {
-        
-        
-        if (shootMotor.get() == 0) {
-            shootMotor.set(RobotConstants.Shooting.SHOOT_MOTOR_SPEED);            
-         //   print("Shooting motor is activated");
+        if (isActivateShootMotorButtonPressed()) {
+            shootMotor.set(getShootMotorSpeed());
         } else {
             shootMotor.set(0);
-           // print("Shooting motor is deactivated");
         }
-      
     }
 
+    public void updatePressure() {
+        if (airCompressor.getPressureSwitchValue() == RobotConstants.Pneumatics.MAX_PRESSURE) {
+            airCompressor.stop();
+        } else {
+            airCompressor.start();
+        }
+
+
+    }
+
+   
     // Util
     SpeedController getShootMotor() {
         return shootMotor;
@@ -127,13 +130,12 @@ public final class Shooter {
     Solenoid getFeeder() {
         return feeder;
     }
-    private boolean previousButtonState = false;
-
-    private boolean shouldToggleShooterMotor() {
-        boolean currentButtonState = aimingStick.getRawButton(RobotConstants.Shooting.TOGGLE_SHOOT_MOTOR_BUTTON);
-        boolean result = previousButtonState && !currentButtonState;
-        previousButtonState = currentButtonState;
-        return result;
+    
+    private double getShootMotorSpeed() {
+        return Math.abs(aimingStick.getAxis(Joystick.AxisType.kZ));
     }
     
+    private boolean isActivateShootMotorButtonPressed() {
+        return aimingStick.getRawButton(RobotConstants.Shooting.TOGGLE_SHOOT_MOTOR_BUTTON);
+    }
 }

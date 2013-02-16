@@ -51,6 +51,8 @@ public class Jagbot extends IterativeRobot {
 
         // Check and initiate shooting based on the fire button
         shooter.updateShooting();
+        
+        shooter.updatePressure();
     }
 
     /**
