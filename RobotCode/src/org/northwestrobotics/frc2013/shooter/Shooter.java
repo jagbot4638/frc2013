@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.northwestrobotics.frc2013.RobotConstants;
 import org.northwestrobotics.frc2013.State;
 import org.northwestrobotics.frc2013.StateMachine;
@@ -112,9 +113,13 @@ public final class Shooter {
     }
 
     public void updatePressure() {
+         SmartDashboard.putBoolean("At Maximum Pressure", airCompressor.getPressureSwitchValue());
+       
         if (airCompressor.getPressureSwitchValue() == RobotConstants.Pneumatics.MAX_PRESSURE) {
+          SmartDashboard.getBoolean("Compresser is on", false);
             airCompressor.stop();
         } else {
+             SmartDashboard.getBoolean("Compresser is on", true);
             airCompressor.start();
         }
 
