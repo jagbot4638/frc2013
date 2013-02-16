@@ -32,9 +32,11 @@ public class RobotConstants {
     }
 
     public static final class Shooting {
+        
 
         private Shooting() {
-        }
+        } 
+        public static  final int POTENTIOMETER=1;
         public static final int AIMING_CONTROLLER = 2;
         // on Controller 2
         public static final int SHOOT_BUTTON = 1;
