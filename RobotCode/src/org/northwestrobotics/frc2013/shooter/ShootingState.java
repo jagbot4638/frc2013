@@ -43,12 +43,13 @@ public final class ShootingState extends BaseShooterState {
             // TODO: may not have to do this as it is autoretract.
             shooter.getFeeder().set(false); // Retract the pneumatic arm
         }
-        
+ /*   Motor is now manually controlled.s    
         // Stop the motor when motor deactivation time has been reached
         if (motorStopTimer.get() >= RobotConstants.Shooting.SHOOT_MOTOR_DEACTIVATION_TIME) {
             motorStopTimer.stop();
             return shooter.getAwaitingUserInputState(); // Switch back to awaiting user input
-        }   
+        }  
+ */
         return this; // Stay on this state because it is not time to stop the shoot motor
     }
     
