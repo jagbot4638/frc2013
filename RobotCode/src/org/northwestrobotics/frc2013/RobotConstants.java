@@ -61,16 +61,22 @@ public class RobotConstants {
         // soggy.potato
         // TODO: Finalize the motor speed
         public static final double SHOOT_MOTOR_SPEED = 1;
-        
-        
         public static final double SHOOT_MOTOR_DEACTIVATION_TIME = 3;// seconds
+        
+        
+        public static int ANGLE_READER_CHANNEL = 8;
+    
+    //pneumatics Addons
+    public static final boolean MAX_PRESSURE = true;
+    public static final int COMPRESSOR_RELAY=5;
+    public static final int PRESSURE_SWITCH_VALUE=6;    
     }
 
     public static final class Loader {
 
         private Loader() {
         }
-        public static final boolean MAX_PRESSURE = false;
+   
         public static final int SUCKTIONCUP = 9;
         public static final int ARMRETRACTOR = 9;
         public static final int AIRCOMPRESSOR = 9;

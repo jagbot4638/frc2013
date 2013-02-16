@@ -4,11 +4,13 @@
  */
 package org.northwestrobotics.frc2013.shooter;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.MotorSafetyHelper;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.SolenoidBase;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
@@ -58,7 +60,12 @@ public final class Shooter {
     private final State shootingState = new ShootingState(this);
     // Machine
     private final StateMachine shootingStateMachine = new StateMachine(awaitingUserInputState);
+    private final Compressor airCompressor = new Compressor(RobotConstants.Shooting.PRESSURE_SWITCH_VALUE,
+            RobotConstants.Shooting.COMPRESSOR_RELAY);
 
+    
+    public Potentiometer angleReader
+            = new Potentiometer(RobotConstants.Shooting.ANGLE_READER_CHANNEL);
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
     }
@@ -100,23 +107,27 @@ public final class Shooter {
 
     public void updateShooting() {
         shootingStateMachine.update();
-        if (shouldToggleShooterMotor()) {
-            
-            toggleShootMotor();
+        if (isActivateShootMotorButtonPressed()) {
+            shootMotor.set(getShootMotorSpeed());
+        } else {
+            shootMotor.set(0);
         }
+        DriverStationLCD lcd = DriverStationLCD.getInstance();
+        lcd.println(DriverStationLCD.Line.kUser3, 0, new Double(angleReader.getAngle()).toString());
+        lcd.updateLCD();
     }
 
     private void toggleShootMotor() {
-        
-        
-        if (shootMotor.get() == 0) {
-            shootMotor.set(RobotConstants.Shooting.SHOOT_MOTOR_SPEED);            
-         //   print("Shooting motor is activated");
-        } else {
-            shootMotor.set(0);
-           // print("Shooting motor is deactivated");
-        }
-      
+
+
+        //if (shootMotor.get() == 0) {
+        shootMotor.set(Math.abs(aimingStick.getAxis(Joystick.AxisType.kZ)));
+        //   print("Shooting motor is activated");
+        //} else {
+        //shootMotor.set(0);
+        // print("Shooting motor is deactivated");
+        //}
+
     }
 
     // Util
@@ -130,10 +141,27 @@ public final class Shooter {
     private boolean previousButtonState = false;
 
     private boolean shouldToggleShooterMotor() {
-        boolean currentButtonState = aimingStick.getRawButton(RobotConstants.Shooting.TOGGLE_SHOOT_MOTOR_BUTTON);
+        boolean currentButtonState = isActivateShootMotorButtonPressed();
         boolean result = previousButtonState && !currentButtonState;
         previousButtonState = currentButtonState;
         return result;
     }
-    
+
+    public void updatePressure() {
+        if (airCompressor.getPressureSwitchValue() == RobotConstants.Shooting.MAX_PRESSURE) {
+            airCompressor.stop();
+        } else {
+            airCompressor.start();
+        }
+
+
+    }
+
+    private boolean isActivateShootMotorButtonPressed() {
+        return aimingStick.getRawButton(RobotConstants.Shooting.TOGGLE_SHOOT_MOTOR_BUTTON);
+    }
+
+    private double getShootMotorSpeed() {
+        return Math.abs(aimingStick.getAxis(Joystick.AxisType.kZ));
+    }
 }
