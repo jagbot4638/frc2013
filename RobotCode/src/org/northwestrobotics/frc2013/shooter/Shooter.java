@@ -95,6 +95,13 @@ public final class Shooter {
          * from testing. Perform a range check before calling the set method.
          * May have to change sign.
          */
+       // SmartDashboard.putNumber("Encoder reading", angleGetter.get());
+        SmartDashboard.putNumber("Encoder raw reading", angleGetter.getRaw());
+        //SmartDashboard.putNumber("Encoder rate", angleGetter.getRate());
+        //SmartDashboard.putBoolean("Encoder direction", angleGetter.getDirection());
+        //SmartDashboard.putNumber("Encoder direction", angleGetter.getDistance());
+        //SmartDashboard.putNumber("Encoder pid", angleGetter.pidGet());
+        
         if (isSettingAngle) {
             if((int)getAngle() == (int)targetAngle){
                 isSettingAngle = false;
@@ -198,8 +205,8 @@ public final class Shooter {
     private double getAngle() {
         // TODO
         int count = angleGetter.get();
-        
-        double angleInDegrees = count*RobotConstants.Shooting.DEGREE_PER_PULSE;
+        SmartDashboard.putNumber("Encoder", angleGetter.get());
+        double angleInDegrees = count*RobotConstants.Shooting.DEGREES_PER_PULSE;
         angleInDegrees %= 360;
         return angleInDegrees;
 

@@ -59,7 +59,7 @@ public class RobotConstants {
         // Aiming
         public static final int AIMING_ENCODER_CHANNEL_A = 8;
         public static final int AIMING_ENCODER_CHANNEL_B = 9;
-        public static final double DEGREE_PER_PULSE = 1;
+        public static final double DEGREES_PER_PULSE = 1;
         public static final double CHANGE_IN_PITCH_MOTOR_SPEED = 0.05;
         // public static final double MOTOR_OUTPUT_CONVERSION_FACTOR = 0.1;
         
