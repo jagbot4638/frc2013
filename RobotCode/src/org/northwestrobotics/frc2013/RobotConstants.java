@@ -46,7 +46,7 @@ public class RobotConstants {
         // Shoot
         public static final double EXPIRATION_TIME = 10;
         public static final double MOTOR_SPEED = .5;
-        public static final double PITCH_FACTOR = .5;
+        public static final double PITCH_FACTOR = .1;
         // Feeder
         // soggy.potato
         // TODO: Finalize the motor speed
@@ -68,7 +68,7 @@ public class RobotConstants {
          * @author AgentOrange
          * @author soggy.potato
          */
-        public static final double FEEDER_WAIT_TIME = 1;// second
+        public static final double FEEDER_WAIT_TIME = 1000000;// micro second
     }
 
     public static final class Loader {
