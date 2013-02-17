@@ -4,6 +4,7 @@
  */
 package org.northwestrobotics.frc2013;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 
@@ -17,7 +18,10 @@ import edu.wpi.first.wpilibj.Solenoid;
  */
 public final class Lifter {
 
-    private final Solenoid climber = new Solenoid(RobotConstants.Lifter.CLIMBER_CHANNEL);
+    private final DoubleSolenoid[] climber = {
+        new DoubleSolenoid(RobotConstants.Lifter.CLIMBER1_FORWARD_CHANNEL, RobotConstants.Lifter.CLIMBER1_REVERSE_CHANNEL),
+        new DoubleSolenoid(RobotConstants.Lifter.CLIMBER2_FORWARD_CHANNEL, RobotConstants.Lifter.CLIMBER2_REVERSE_CHANNEL)
+    };
     private final Joystick moveController;
 
     public Lifter(Joystick moveController) {
@@ -26,7 +30,8 @@ public final class Lifter {
     
     public final void reactToUserInput() {
         if(moveController.getTrigger()){
-            climber.set(true);
+            climber[0].set(DoubleSolenoid.Value.kForward);
+            climber[1].set(DoubleSolenoid.Value.kForward);
             
             
         }
