@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.northwestrobotics.frc2013.RobotConstants;
 import org.northwestrobotics.frc2013.State;
 import org.northwestrobotics.frc2013.StateMachine;
@@ -23,6 +24,7 @@ import org.northwestrobotics.frc2013.StateMachine;
  * @author soggy.potato
  * @author SilverX
  * @author AgentOrange
+ * @author Deven_Gosalia
  */
 public final class Shooter {
     // Aiming
@@ -88,8 +90,13 @@ public final class Shooter {
          * from testing. Perform a range check before calling the set method.
          * May have to change sign.
          */
-        final double pitchAdjustment = aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
+        double pitchAdjustment =-aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
+        if (pitchAdjustment < 0) {
+            pitchAdjustment *= 3;
+        }
         pitchMotor.set(pitchAdjustment);
+  
+                
 
     }
 
@@ -105,7 +112,7 @@ public final class Shooter {
     public void updateShooting() {
         shootingStateMachine.update();
         if (isActivateShootMotorButtonPressed()) {
-            shootMotor.set(getShootMotorSpeed());
+            shootMotor.set(-getShootMotorSpeed());
         } else {
             shootMotor.set(0);
         }
