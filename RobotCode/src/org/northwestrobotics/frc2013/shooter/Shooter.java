@@ -116,6 +116,7 @@ public final class Shooter {
         //DriverStationLCD lcd = DriverStationLCD.getInstance();
         //lcd.println(DriverStationLCD.Line.kUser3, 0, angle.toString());
         //lcd.updateLCD();
+       
     }
 
     private void toggleShootMotor() {
@@ -165,4 +166,18 @@ public final class Shooter {
     private double getShootMotorSpeed() {
         return Math.abs(angleReader.getAngle());
     }
+    
+    private void test(int volt){
+    
+    
+    
+    
+    
+    
+    
+    }
+    
+    
+    
+    
 }
