@@ -61,14 +61,14 @@ public class RobotConstants {
         public static final boolean MAX_PRESSURE = true;
         public static final int COMPRESSOR_RELAY = 5;
         public static final int PRESSURE_SWITCH_VALUE = 6;
-        public static final int FEEDER_CHANNEL = 7;
+        public static final int FEEDER_CHANNEL =1 ;
         /**
          * Amount of time to wait to retract the arm
          *
          * @author AgentOrange
          * @author soggy.potato
          */
-        public static final double FEEDER_WAIT_TIME = 1000000;// micro second
+        public static final double FEEDER_WAIT_TIME = 1000;// micro second
     }
 
     public static final class Loader {

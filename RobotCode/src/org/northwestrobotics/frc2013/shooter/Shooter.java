@@ -134,7 +134,7 @@ public final class Shooter {
         return shootMotor;
     }
 
-    Solenoid getFeeder() {
+   public Solenoid getFeeder() {
         return feeder;
     }
     
