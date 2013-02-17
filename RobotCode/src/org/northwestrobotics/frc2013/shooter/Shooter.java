@@ -100,6 +100,9 @@ public final class Shooter {
                 isSettingAngle = false;
                 pitchMotor.set(0);
             } else {
+                isSettingAngle = true;
+                double changeAngle = targetAngle - getAngle();
+                pitchMotor.set(0.1);
                 
             }
                 
