@@ -32,6 +32,8 @@ public class RobotConstants {
     }
 
     public static final class Shooting {
+        public static final double MAX_ANGLE = 45.0;
+        public static final double MIN_ANGLE = 0.0;
         
 
         private Shooting() {
@@ -54,6 +56,12 @@ public class RobotConstants {
         // TODO: Finalize the motor speed
         public static final double SHOOT_MOTOR_SPEED = 1;
         public static final double SHOOT_MOTOR_DEACTIVATION_TIME = 3;// seconds
+        // Aiming
+        public static final int AIMING_ENCODER_CHANNEL_A = 8;
+        public static final int AIMING_ENCODER_CHANNEL_B = 9;
+        public static final double DEGREE_PER_PULSE = 1;
+        public static final double CHANGE_IN_PITCH_MOTOR_SPEED = 0.05;
+        
     }
 
     public static final class Pneumatics {

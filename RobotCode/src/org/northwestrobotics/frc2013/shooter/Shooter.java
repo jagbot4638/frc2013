@@ -63,9 +63,14 @@ public final class Shooter {
     private final State shootingState = new ShootingState(this);
     // Machine
     private final StateMachine shootingStateMachine = new StateMachine(awaitingUserInputState);
+    // Aiming Encoder
+    private final Encoder angleGetter = new Encoder(RobotConstants.Shooting.AIMING_ENCODER_CHANNEL_A,
+            RobotConstants.Shooting.AIMING_ENCODER_CHANNEL_B);
 
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
+        this.targetAngle = getAngle();
+        angleGetter.start();
     }
 
     State getAwaitingUserInputState() {
@@ -78,6 +83,7 @@ public final class Shooter {
 
     /**
      * Adjusts vertical aiming in accordance to user input.
+     *
      * @author AgentOrange
      * @author soggy.potato
      */
@@ -89,13 +95,32 @@ public final class Shooter {
          * from testing. Perform a range check before calling the set method.
          * May have to change sign.
          */
-        final double pitchAdjustment = aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
-        pitchMotor.set(pitchAdjustment);
+        if (isSettingAngle) {
+            if((int)getAngle() == (int)targetAngle){
+                isSettingAngle = false;
+                pitchMotor.set(0);
+            } else {
+                
+            }
+                
+                
+        } else {
+            final double pitchAdjustment = aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
+            if (getAngle() > RobotConstants.Shooting.MAX_ANGLE && pitchAdjustment > 0) {
+                pitchMotor.set(0);
+            } else if (RobotConstants.Shooting.MIN_ANGLE > getAngle() && pitchAdjustment < 0) {
+                pitchMotor.set(0);
+            } else {
+                pitchMotor.set(pitchAdjustment);
+            }
+            targetAngle = getAngle();
+        }
 
     }
 
     /**
      * Determines whether the driver has commanded the robot to shoot a frisbee.
+     *
      * @author soggy.potato
      */
     boolean isShootButtonPressed() {
@@ -142,6 +167,8 @@ public final class Shooter {
     }
     //ANGLING STUFF
     private Potentiometer angle = new Potentiometer(RobotConstants.Shooting.POTENTIOMETER);
+    private double targetAngle;
+    private boolean isSettingAngle = false;
 
     /**
      * Adjusts the shooter so that it is aiming at the given angle.
@@ -151,22 +178,28 @@ public final class Shooter {
      * @author AgentOrange
      */
     public void setAngle(double angle) {
-        double deltaAngle = angle - getAngle();
-
-        double motorOutput = convertToMotorOutput(deltaAngle);
-
-        pitchMotor.set(motorOutput);
-
+        if (angle != getAngle()) {
+            targetAngle = angle;
+            isSettingAngle = true;
+        }
+        
+        
+        
+        
     }
 
     /**
      * Gets the shooter's angle from the ground.
-     *
      * @return The shooter's angle from the ground
      */
     private double getAngle() {
         // TODO
-        return 0.0;
+        int count = angleGetter.get();
+        
+        double angleInDegrees = count*RobotConstants.Shooting.DEGREE_PER_PULSE;
+        angleInDegrees %= 360;
+        return angleInDegrees;
+
     }
 
     private double convertToMotorOutput(double deltaAngle) {
