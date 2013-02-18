@@ -5,6 +5,7 @@
 package org.northwestrobotics.frc2013.shooter;
 
 import edu.wpi.first.wpilibj.DriverStationLCD;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.northwestrobotics.frc2013.State;
 
 /**
@@ -26,6 +27,7 @@ public final class AwaitingUserInputState extends BaseShooterState {
 
     public State handle() {
         if (shooter.isShootButtonPressed()) {
+             SmartDashboard.putString("Shooting State Machine", "Waiting for user input");
             return shooter.getShootingState();
         }
         return this;

@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author AgentOrange
@@ -55,37 +58,21 @@ class Driver {
      */
     private void move() {
         robotDrive.arcadeDrive(moveStick);
-        DriverStationLCD test = DriverStationLCD.getInstance();
-        test.println(DriverStationLCD.Line.kUser3, 1, String.valueOf(moveStick.getAxis(Joystick.AxisType.kX)));
-        test.updateLCD();
+
 
 
     }
 
     public void test() {
-        if (moveStick.getRawButton(RobotConstants.TestDrive.ACTIVATE_FRONT_LEFT_MOTOR_BUTTON)) {
-            frontLeftController.set(1);
-        } else {
-            frontLeftController.set(0);
-        }
+        LiveWindow.addActuator("Drive", "Front Right Motor", new Victor(RobotConstants.Drive.FRONT_RIGHT_MOTOR));
+        new Victor(RobotConstants.Drive.FRONT_RIGHT_MOTOR).startLiveWindowMode();
+        LiveWindow.addActuator("Drive", "Front Left Motor", new Talon(RobotConstants.Drive.FRONT_LEFT_MOTOR));
+        new Talon(RobotConstants.Drive.FRONT_LEFT_MOTOR).startLiveWindowMode();
+        LiveWindow.addActuator("Drive", "Back Right Motor", new Talon(RobotConstants.Drive.BACK_RIGHT_MOTOR));
+        new Talon(RobotConstants.Drive.BACK_RIGHT_MOTOR).startLiveWindowMode();
+        LiveWindow.addActuator("Drive", "Back Left Motor", new Victor(RobotConstants.Drive.BACK_LEFT_MOTOR));
+        new Victor(RobotConstants.Drive.BACK_LEFT_MOTOR).startLiveWindowMode();
 
-        if (moveStick.getRawButton(RobotConstants.TestDrive.ACTIVATE_FRONT_RIGHT_MOTOR_BUTTON)) {
-            frontRightController.set(1);
-        } else {
-            frontRightController.set(0);
-        }
-
-        if (moveStick.getRawButton(RobotConstants.TestDrive.ACTIVATE_BACK_LEFT_MOTOR_BUTTON)) {
-            backLeftController.set(1);
-        } else {
-            backLeftController.set(0);
-        }
-
-        if (moveStick.getRawButton(RobotConstants.TestDrive.ACTIVATE_BACK_RIGHT_MOTOR_BUTTON)) {
-            backRightController.set(1);
-        } else {
-            backRightController.set(0);
-        }
     }
 
     private void initializeRobotDrive() {
@@ -95,6 +82,19 @@ class Driver {
         robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
         robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);// original
         robotDrive.setMaxOutput(RobotConstants.Drive.MAX_MOTOR_SPEED);
+
+    }
+
+    public void getController() {
+        //moveeStick
+        NetworkTable data = NetworkTable.getTable("Move Stick");
+        data.putNumber("X Axis", moveStick.getAxis(Joystick.AxisType.kX));
+        data.putNumber("Y Axis", moveStick.getAxis(Joystick.AxisType.kY));
+        SendableData send = new SendableData(data, "Move Stick");
+        SmartDashboard.putData(send);
+
+
+
 
     }
 }

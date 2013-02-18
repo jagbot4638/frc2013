@@ -83,13 +83,11 @@ public class RobotConstants {
         public static final int COUNTER = 56;
     }
 
-    public static final class TestDrive {
+    public static final class Test {
 
-        private TestDrive() {
+        private Test() {
         }
-        public static final int ACTIVATE_FRONT_LEFT_MOTOR_BUTTON = 6;
-        public static final int ACTIVATE_FRONT_RIGHT_MOTOR_BUTTON = 11;
-        public static final int ACTIVATE_BACK_LEFT_MOTOR_BUTTON = 7;
-        public static final int ACTIVATE_BACK_RIGHT_MOTOR_BUTTON = 10;
+        public static final double JOYSTICK_WAIT_TIME= 100000;
+        
     }
 }

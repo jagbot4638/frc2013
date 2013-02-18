@@ -6,6 +6,7 @@ package org.northwestrobotics.frc2013.shooter;
 
 import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.northwestrobotics.frc2013.RobotConstants;
 import org.northwestrobotics.frc2013.State;
 
@@ -23,12 +24,14 @@ public final class ShootingState extends BaseShooterState {
     }
 
     public void enter() {
+        SmartDashboard.putString("Shooting State Machine ", "Shooting State");
         shouldActivateFeeder = true;
         motorStopTimer.reset(); // Reset the timer
+         SmartDashboard.putBoolean("Arm Fired", true);  
     }
 
     public State handle() {
-        print("handle", DriverStationLCD.Line.kUser2);
+        SmartDashboard.putBoolean("Arm Fired", false);   
         // Activate pneumatic arm. Activation has been moved
         // to this function, so that there is a small delay between
         // starting the motor in the enter() method and feeding
