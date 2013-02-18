@@ -55,9 +55,8 @@ public final class Shooter {
      *
      * @author AgentOrange
      */
-    private final Solenoid feeder = new Solenoid(RobotConstants.Pneumatics.FEEDER_CHANNEL);
-    private final Compressor airCompressor = new Compressor(RobotConstants.Pneumatics.PRESSURE_SWITCH_VALUE,
-            RobotConstants.Pneumatics.COMPRESSOR_RELAY);
+    private final Solenoid feeder;
+    private final Compressor airCompressor;
     // STATE MACHINE
     // States
     private final State awaitingUserInputState = new AwaitingUserInputState(this);
@@ -65,8 +64,14 @@ public final class Shooter {
     // Machine
     private final StateMachine shootingStateMachine = new StateMachine(awaitingUserInputState);
 
-    public Shooter(Joystick aimingStick) {
+    public Shooter(Joystick aimingStick, Compressor airCompressor, Solenoid feeder) {
         this.aimingStick = aimingStick;
+        this.airCompressor = airCompressor;
+        this.feeder = feeder;
+    }
+    
+    public void activateShootMotorForAutonomous() {
+        shootMotor.set(-1);
     }
 
     State getAwaitingUserInputState() {

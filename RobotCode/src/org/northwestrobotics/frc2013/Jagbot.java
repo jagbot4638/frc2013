@@ -6,10 +6,12 @@
 /*----------------------------------------------------------------------------*/
 package org.northwestrobotics.frc2013;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStation;
 import org.northwestrobotics.frc2013.shooter.Shooter;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -24,6 +26,10 @@ public class Jagbot extends IterativeRobot {
     private Joystick aimingController;
     private Driver driver;
     private Shooter shooter;
+    
+    private Compressor airCompressor;
+    
+    private Solenoid feeder;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -32,13 +38,22 @@ public class Jagbot extends IterativeRobot {
     public void robotInit() {
         driver = new Driver();
         aimingController = new Joystick(RobotConstants.Shooting.AIMING_CONTROLLER);
-        shooter = new Shooter(aimingController);
+        
+        
+        airCompressor = new Compressor(RobotConstants.Pneumatics.PRESSURE_SWITCH_VALUE,
+            RobotConstants.Pneumatics.COMPRESSOR_RELAY);
+        feeder = new Solenoid(RobotConstants.Pneumatics.FEEDER_CHANNEL);
+        
+        shooter = new Shooter(aimingController, airCompressor, feeder);
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+        shooter.activateShootMotorForAutonomous();
+        shooter.getFeeder().set(!shooter.getFeeder().get());
+        shooter.updatePressure();
     }
 
     /**
