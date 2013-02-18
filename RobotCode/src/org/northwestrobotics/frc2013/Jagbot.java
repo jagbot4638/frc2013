@@ -6,9 +6,11 @@
 /*----------------------------------------------------------------------------*/
 package org.northwestrobotics.frc2013;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import org.northwestrobotics.frc2013.shooter.Shooter;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -53,12 +55,16 @@ public class Jagbot extends IterativeRobot {
         shooter.updateShooting();
         
         shooter.updatePressure();
+        SmartDashboard.putNumber("Voltage", DriverStation.kBatteryChannel);
     }
 
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-        driver.test();
+      
     }
+
+
+    
 }

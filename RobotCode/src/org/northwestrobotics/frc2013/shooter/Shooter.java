@@ -24,6 +24,7 @@ import org.northwestrobotics.frc2013.StateMachine;
  * @author soggy.potato
  * @author SilverX
  * @author AgentOrange
+ * @author Deven_Gosalia
  */
 public final class Shooter {
     // Aiming
@@ -95,6 +96,7 @@ public final class Shooter {
          * from testing. Perform a range check before calling the set method.
          * May have to change sign.
          */
+
         if (isSettingAngle) {
             if((int)getAngle() == (int)targetAngle){
                 isSettingAngle = false;
@@ -108,7 +110,11 @@ public final class Shooter {
                 
                 
         } else {
-            final double pitchAdjustment = aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
+            double pitchAdjustment =-aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
+        if (pitchAdjustment < 0) {
+            pitchAdjustment *= 3;
+        }
+        
             if (getAngle() > RobotConstants.Shooting.MAX_ANGLE && pitchAdjustment > 0) {
                 pitchMotor.set(0);
             } else if (RobotConstants.Shooting.MIN_ANGLE > getAngle() && pitchAdjustment < 0) {
@@ -117,6 +123,7 @@ public final class Shooter {
                 pitchMotor.set(pitchAdjustment);
             }
             targetAngle = getAngle();
+            pitchMotor.set(pitchAdjustment);
         }
 
     }
@@ -134,9 +141,7 @@ public final class Shooter {
     public void updateShooting() {
         shootingStateMachine.update();
         if (isActivateShootMotorButtonPressed()) {
-            SmartDashboard.putNumber("Voltage", angle.getAngle());
-            shootMotor.set(getShootMotorSpeed());
-
+            shootMotor.set(-getShootMotorSpeed());
         } else {
             shootMotor.set(0);
         }
@@ -157,7 +162,7 @@ public final class Shooter {
         return shootMotor;
     }
 
-    Solenoid getFeeder() {
+   public Solenoid getFeeder() {
         return feeder;
     }
 
