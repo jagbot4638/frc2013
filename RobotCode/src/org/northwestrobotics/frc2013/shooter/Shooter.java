@@ -99,12 +99,17 @@ public final class Shooter {
          * from testing. Perform a range check before calling the set method.
          * May have to change sign.
          */
-        double pitchAdjustment =-aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
+        double pitchAdjustment = -aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
         if (pitchAdjustment < 0) {
             pitchAdjustment *= 3;
         }
-        pitchMotor.set(pitchAdjustment);
-  
+        
+        if ((highLimitSwitch.get() && pitchAdjustment > 0) ||
+                (lowLimitSwitch.get() && pitchAdjustment < 0)) {
+            pitchMotor.set(0);
+        } else {
+            pitchMotor.set(pitchAdjustment);
+        }
                 
 
     }
