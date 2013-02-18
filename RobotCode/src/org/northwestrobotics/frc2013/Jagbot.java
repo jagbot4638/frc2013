@@ -6,9 +6,9 @@
 /*----------------------------------------------------------------------------*/
 package org.northwestrobotics.frc2013;
 
-import org.northwestrobotics.frc2013.shooter.Shooter;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import org.northwestrobotics.frc2013.shooter.Shooter;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -66,6 +66,7 @@ public class Jagbot extends IterativeRobot {
         
         // When the user presses the necessary button, activate the climber
         lifter.reactToUserInput();
+
     }
 
     /**
@@ -74,4 +75,7 @@ public class Jagbot extends IterativeRobot {
     public void testPeriodic() {
         driver.test(); // test the drive system
     }
+
+
+    
 }
