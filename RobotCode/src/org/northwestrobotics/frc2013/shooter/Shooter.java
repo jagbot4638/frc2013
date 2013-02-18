@@ -194,6 +194,8 @@ public final class Shooter {
         
         
         
+        
+        
     }
 
     /**
@@ -203,8 +205,8 @@ public final class Shooter {
     private double getAngle() {
         // TODO
         int count = angleGetter.get();
-        
-        double angleInDegrees = count*RobotConstants.Shooting.DEGREE_PER_PULSE;
+        SmartDashboard.putNumber("Encoder", angleGetter.get());
+        double angleInDegrees = count*RobotConstants.Shooting.DEGREES_PER_PULSE;
         angleInDegrees %= 360;
         return angleInDegrees;
 
