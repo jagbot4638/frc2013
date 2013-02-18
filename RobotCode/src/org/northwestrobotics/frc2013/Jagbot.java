@@ -29,8 +29,8 @@ public class Jagbot extends IterativeRobot {
     private Shooter shooter;
     private Compressor airCompressor;
     private Solenoid feeder;
-    private int magazine = 4;
-    private boolean isStart = true;
+    private int numberOfFrisbeesInTheMagazine;
+    private boolean isStart;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -46,27 +46,46 @@ public class Jagbot extends IterativeRobot {
         feeder = new Solenoid(RobotConstants.Pneumatics.FEEDER_CHANNEL);
 
         shooter = new Shooter(aimingController, airCompressor, feeder);
+        
+        numberOfFrisbeesInTheMagazine = 4;
+        isStart = true;
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        if (magazine > 0) {
-            if (isStart) {
-                shooter.activateShootMotorForAutonomous();
-                Timer.delay(2);// second
-                isStart = false;
+        if (shooter.prepareForAutonomousShooting()) {
+            if (numberOfFrisbeesInTheMagazine > 0) {
+                if (isStart) {
+                    shooter.activateShootMotorForAutonomous();
+                    
+                    // Waiting for two seconds to allow the shoot motor to speed
+                    // up.
+                    Timer.delay(2);// second
+                    
+                    isStart = false; // we are done starting the motor
+                }
+                
+                // Push frisbee into running motor to fire
+                shooter.getFeeder().set(true);
+                Timer.delay(.5);
+                
+                // Retract solenoid to allow next frisbee to be loaded into the
+                // chamber.
+                shooter.getFeeder().set(false);
+                
+                // The shooter has launched one frisbee; therefore, there is one
+                // less in the magazine.
+                numberOfFrisbeesInTheMagazine--;
+            } else {
+                // The robot is done shooting; as a result, battery power does 
+                // not need to be wasted running the shoot motor.
+                shooter.deactivateShootMotorForAutonomous();
             }
-            shooter.getFeeder().set(true);
-            Timer.delay(.5);
-            shooter.getFeeder().set(false);
-            magazine--;
-        } else {
-            shooter.deactivateShootMotorForAutonomous();
         }
         shooter.updatePressure();
-        shooter.updateAutonomous();
+
     }
 
     /**

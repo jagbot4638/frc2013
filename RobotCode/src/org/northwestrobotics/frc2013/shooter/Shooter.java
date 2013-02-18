@@ -155,11 +155,19 @@ public final class Shooter {
         return aimingStick.getRawButton(RobotConstants.Shooting.TOGGLE_SHOOT_MOTOR_BUTTON);
     }
     
-    public void updateAutonomous(){
+    /**
+     * Keep moving the shooter until the limit switch target angle is achieved.
+     * @return A boolean, which tells the caller whether the robot shooter is in position for shooting.
+     */
+    public boolean prepareForAutonomousShooting(){
         
-        if(!lowLimitSwitch.get() || !highLimitSwitch.get())
+        if(!lowLimitSwitch.get() || !highLimitSwitch.get()) {
             pitchMotor.set(0.2);
-        else pitchMotor.set(0);
+            return false;
+        } else {
+            pitchMotor.set(0);
+            return true;
+        }
         
        
         
