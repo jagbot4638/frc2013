@@ -20,17 +20,27 @@ import edu.wpi.first.wpilibj.Joystick;
 public class Jagbot extends IterativeRobot {
 
     private Joystick aimingController;
-    private Joystick moveController = new Joystick(RobotConstants.Drive.MOVE_CONTROLLER);
-    private Driver driver = new Driver(moveController);
+    private Joystick moveController;
+    private Driver driver;
     private Shooter shooter;
+    
+    /**
+     * Gives access to the lifting subsystem.
+     * @author soggy.potato
+     */
+    private Lifter lifter;
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
+        moveController = new Joystick(RobotConstants.Drive.MOVE_CONTROLLER);
         aimingController = new Joystick(RobotConstants.Shooting.AIMING_CONTROLLER);
+        
+        driver = new Driver(moveController);
         shooter = new Shooter(aimingController);
+        lifter = new Lifter(moveController);
     }
 
     /**
@@ -53,12 +63,15 @@ public class Jagbot extends IterativeRobot {
         shooter.updateShooting();
         
         shooter.updatePressure();
+        
+        // When the user presses the necessary button, activate the climber
+        lifter.reactToUserInput();
     }
 
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-        driver.test();
+        driver.test(); // test the drive system
     }
 }
