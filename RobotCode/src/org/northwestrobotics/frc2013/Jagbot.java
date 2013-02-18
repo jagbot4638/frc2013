@@ -29,7 +29,18 @@ public class Jagbot extends IterativeRobot {
     private Shooter shooter;
     private Compressor airCompressor;
     private Solenoid feeder;
+    
+    /**
+     * Keeps track of the count of frisbees that autonomous has left to shoot.
+     * @author soggy.potato
+     */
     private int numberOfFrisbeesInTheMagazine;
+    
+    /**
+     * Tells autonomous to start the motor because the right angle has been
+     * reached, and the motor is not on.
+     * @author soggy.potato
+     */
     private boolean isStart;
 
     /**

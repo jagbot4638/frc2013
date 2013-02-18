@@ -156,12 +156,13 @@ public final class Shooter {
     }
     
     /**
-     * Keep moving the shooter until the limit switch target angle is achieved.
+     * Keep moving the shooter until the upper limit switch target angle is achieved.
+     * @author AgentOrange
      * @return A boolean, which tells the caller whether the robot shooter is in position for shooting.
      */
     public boolean prepareForAutonomousShooting(){
         
-        if(!lowLimitSwitch.get() || !highLimitSwitch.get()) {
+        if(!highLimitSwitch.get()) {
             pitchMotor.set(0.2);
             return false;
         } else {
