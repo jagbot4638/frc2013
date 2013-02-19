@@ -12,6 +12,7 @@ import org.northwestrobotics.frc2013.shooter.Shooter;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -26,10 +27,10 @@ public class Jagbot extends IterativeRobot {
     private Joystick aimingController;
     private Driver driver;
     private Shooter shooter;
-    
     private Compressor airCompressor;
-    
     private Solenoid feeder;
+    private int magazine = 4;
+    private boolean isStart = true;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -38,12 +39,12 @@ public class Jagbot extends IterativeRobot {
     public void robotInit() {
         driver = new Driver();
         aimingController = new Joystick(RobotConstants.Shooting.AIMING_CONTROLLER);
-        
-        
+
+
         airCompressor = new Compressor(RobotConstants.Pneumatics.PRESSURE_SWITCH_VALUE,
-            RobotConstants.Pneumatics.COMPRESSOR_RELAY);
+                RobotConstants.Pneumatics.COMPRESSOR_RELAY);
         feeder = new Solenoid(RobotConstants.Pneumatics.FEEDER_CHANNEL);
-        
+
         shooter = new Shooter(aimingController, airCompressor, feeder);
     }
 
@@ -51,9 +52,21 @@ public class Jagbot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        shooter.activateShootMotorForAutonomous();
-        shooter.getFeeder().set(!shooter.getFeeder().get());
+        if (magazine > 0) {
+            if (isStart) {
+                shooter.activateShootMotorForAutonomous();
+                Timer.delay(2);// second
+                isStart = false;
+            }
+            shooter.getFeeder().set(true);
+            Timer.delay(.5);
+            shooter.getFeeder().set(false);
+            magazine--;
+        } else {
+            shooter.deactivateShootMotorForAutonomous();
+        }
         shooter.updatePressure();
+        shooter.updateAutonomous();
     }
 
     /**
@@ -68,7 +81,7 @@ public class Jagbot extends IterativeRobot {
 
         // Check and initiate shooting based on the fire button
         shooter.updateShooting();
-        
+
         shooter.updatePressure();
         SmartDashboard.putNumber("Voltage", DriverStation.kBatteryChannel);
     }
@@ -77,9 +90,5 @@ public class Jagbot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-      
     }
-
-
-    
 }

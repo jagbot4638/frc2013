@@ -47,6 +47,8 @@ public class RobotConstants {
         public static final double EXPIRATION_TIME = 10;
         public static final double MOTOR_SPEED = .5;
         public static final double PITCH_FACTOR = .1;
+        public static final int HIGH_LIMIT_SWITCH_CHANNEL = 1;
+        public static final int LOW_LIMIT_SWITCH_CHANNEL = 2;
         // Feeder
         // soggy.potato
         // TODO: Finalize the motor speed

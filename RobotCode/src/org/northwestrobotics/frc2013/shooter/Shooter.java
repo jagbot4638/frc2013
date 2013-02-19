@@ -5,6 +5,7 @@
 package org.northwestrobotics.frc2013.shooter;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -64,6 +65,9 @@ public final class Shooter {
     // Machine
     private final StateMachine shootingStateMachine = new StateMachine(awaitingUserInputState);
 
+    private final DigitalInput highLimitSwitch = new DigitalInput(RobotConstants.Shooting.HIGH_LIMIT_SWITCH_CHANNEL);
+    private final DigitalInput lowLimitSwitch = new DigitalInput(RobotConstants.Shooting.LOW_LIMIT_SWITCH_CHANNEL);        
+            
     public Shooter(Joystick aimingStick, Compressor airCompressor, Solenoid feeder) {
         this.aimingStick = aimingStick;
         this.airCompressor = airCompressor;
@@ -150,4 +154,21 @@ public final class Shooter {
     private boolean isActivateShootMotorButtonPressed() {
         return aimingStick.getRawButton(RobotConstants.Shooting.TOGGLE_SHOOT_MOTOR_BUTTON);
     }
+    
+    public void updateAutonomous(){
+        
+        if(!lowLimitSwitch.get() || !highLimitSwitch.get())
+            pitchMotor.set(0.2);
+        else pitchMotor.set(0);
+        
+       
+        
+        
+    
+    }
+
+    public void deactivateShootMotorForAutonomous() {
+        shootMotor.set(0);
+    }
+    
 }
