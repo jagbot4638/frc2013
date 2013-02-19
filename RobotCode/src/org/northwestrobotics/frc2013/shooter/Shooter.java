@@ -13,7 +13,11 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import org.northwestrobotics.frc2013.RobotConstants;
+import org.northwestrobotics.frc2013.SendableData;
 import org.northwestrobotics.frc2013.State;
 import org.northwestrobotics.frc2013.StateMachine;
 
@@ -23,6 +27,7 @@ import org.northwestrobotics.frc2013.StateMachine;
  * @author soggy.potato
  * @author SilverX
  * @author AgentOrange
+ * @author Deven_Gosalia
  */
 public final class Shooter {
     // Aiming
@@ -88,8 +93,13 @@ public final class Shooter {
          * from testing. Perform a range check before calling the set method.
          * May have to change sign.
          */
-        final double pitchAdjustment = aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
+        double pitchAdjustment =-aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
+        if (pitchAdjustment < 0) {
+            pitchAdjustment *= 3;
+        }
         pitchMotor.set(pitchAdjustment);
+  
+                
 
     }
 
@@ -105,14 +115,14 @@ public final class Shooter {
     public void updateShooting() {
         shootingStateMachine.update();
         if (isActivateShootMotorButtonPressed()) {
-            shootMotor.set(getShootMotorSpeed());
+            shootMotor.set(-getShootMotorSpeed());
         } else {
             shootMotor.set(0);
         }
     }
 
     public void updatePressure() {
-        if (airCompressor.getPressureSwitchValue() == RobotConstants.Pneumatics.MAX_PRESSURE) {
+        if (airCompressor.getPressureSwitchValue() ) {
             airCompressor.stop();
         } else {
             airCompressor.start();
@@ -127,7 +137,7 @@ public final class Shooter {
         return shootMotor;
     }
 
-    Solenoid getFeeder() {
+   public Solenoid getFeeder() {
         return feeder;
     }
     
@@ -137,5 +147,15 @@ public final class Shooter {
     
     private boolean isActivateShootMotorButtonPressed() {
         return aimingStick.getRawButton(RobotConstants.Shooting.TOGGLE_SHOOT_MOTOR_BUTTON);
+    }
+    public void getController() {
+        //aimingStick 1, motor 2,
+        NetworkTable data = NetworkTable.getTable("Aiming Stick");
+        data.putNumber("X Axis", aimingStick.getAxis(Joystick.AxisType.kX));
+        data.putNumber("Y Axis", aimingStick.getAxis(Joystick.AxisType.kY));
+        data.putBoolean("Triger", aimingStick.getRawButton(1));
+        data.putBoolean("Start Motor", aimingStick.getRawButton(2));
+        SendableData send=new SendableData(data,"Aiming Stick");
+        SmartDashboard.putData(send);
     }
 }

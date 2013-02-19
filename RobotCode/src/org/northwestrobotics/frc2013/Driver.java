@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * @author AgentOrange
@@ -95,6 +97,18 @@ class Driver {
         robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
         robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);// original
         robotDrive.setMaxOutput(RobotConstants.Drive.MAX_MOTOR_SPEED);
+
+    }
+        public void getController() {
+        //moveeStick
+        NetworkTable data = NetworkTable.getTable("Move Stick");
+        data.putNumber("X Axis", moveStick.getAxis(Joystick.AxisType.kX));
+        data.putNumber("Y Axis", moveStick.getAxis(Joystick.AxisType.kY));
+        SendableData send = new SendableData(data, "Move Stick");
+        SmartDashboard.putData(send);
+
+
+
 
     }
 }

@@ -46,12 +46,13 @@ public class RobotConstants {
         // Shoot
         public static final double EXPIRATION_TIME = 10;
         public static final double MOTOR_SPEED = .5;
-        public static final double PITCH_FACTOR = .5;
+        public static final double PITCH_FACTOR = .1;
         // Feeder
         // soggy.potato
         // TODO: Finalize the motor speed
         public static final double SHOOT_MOTOR_SPEED = 1;
         public static final double SHOOT_MOTOR_DEACTIVATION_TIME = 3;// seconds
+        public static final double JOYSTICK_WAIT_TIME=5;
     }
 
     public static final class Pneumatics {
@@ -61,14 +62,14 @@ public class RobotConstants {
         public static final boolean MAX_PRESSURE = true;
         public static final int COMPRESSOR_RELAY = 5;
         public static final int PRESSURE_SWITCH_VALUE = 6;
-        public static final int FEEDER_CHANNEL = 7;
+        public static final int FEEDER_CHANNEL =1 ;
         /**
          * Amount of time to wait to retract the arm
          *
          * @author AgentOrange
          * @author soggy.potato
          */
-        public static final double FEEDER_WAIT_TIME = 1000000;// micro second
+        public static final double FEEDER_WAIT_TIME = 1000;// micro second
     }
 
     public static final class Loader {
