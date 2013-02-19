@@ -14,8 +14,11 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
+
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+
 
 
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -110,6 +113,7 @@ public final class Shooter {
                 
 
 
+
     }
 
     /**
@@ -158,6 +162,7 @@ public final class Shooter {
     private boolean isActivateShootMotorButtonPressed() {
         return aimingStick.getRawButton(RobotConstants.Shooting.TOGGLE_SHOOT_MOTOR_BUTTON);
     }
+
 
     public void getController() {
         //aimingStick 1, motor 2,

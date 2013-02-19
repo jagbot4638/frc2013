@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -58,11 +61,8 @@ class Driver {
      */
     private void move() {
         robotDrive.arcadeDrive(moveStick);
-
-
-
     }
-
+   
 
     private void initializeRobotDrive() {
         robotDrive = new RobotDrive(frontLeftController, backLeftController, frontRightController, backRightController);
@@ -73,6 +73,9 @@ class Driver {
         robotDrive.setMaxOutput(RobotConstants.Drive.MAX_MOTOR_SPEED);
 
     }
+
+
+   
 
 
     public void getController() {

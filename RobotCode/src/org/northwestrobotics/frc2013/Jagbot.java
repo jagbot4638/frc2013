@@ -40,7 +40,9 @@ public class Jagbot extends IterativeRobot {
                 display.setData(ev.getVoltage());
             }
         });
+
           timer.start();
+
 
 
     }
@@ -56,7 +58,7 @@ public class Jagbot extends IterativeRobot {
      */
     public void teleopPeriodic() {
 
-           if (timer.get() == RobotConstants.Shooting.JOYSTICK_WAIT_TIME) {
+        if (timer.get() == RobotConstants.Test.JOYSTICK_WAIT_TIME) {
 
             shooter.getController();
             driver.getController();

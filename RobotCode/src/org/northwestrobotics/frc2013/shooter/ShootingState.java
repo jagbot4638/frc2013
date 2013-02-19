@@ -27,6 +27,7 @@ public final class ShootingState extends BaseShooterState {
         shouldActivateFeeder = true;
         motorStopTimer.reset(); // Reset the timer
 
+
         SmartDashboard.putBoolean("Arm Fired", true);
 
     }
@@ -34,7 +35,7 @@ public final class ShootingState extends BaseShooterState {
 
     public State handle() {
 
-      SmartDashboard.putBoolean("Arm Fired", false);
+        SmartDashboard.putBoolean("Arm Fired", false);   
 
         // Activate pneumatic arm. Activation has been moved
         // to this function, so that there is a small delay between
