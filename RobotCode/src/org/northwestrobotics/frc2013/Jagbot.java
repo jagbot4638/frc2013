@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 
-
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -43,6 +42,7 @@ public class Jagbot extends IterativeRobot {
         });
           timer.start();
 
+
     }
 
     /**
@@ -55,13 +55,15 @@ public class Jagbot extends IterativeRobot {
      * This function is called periodically during operator control
      */
     public void teleopPeriodic() {
+
            if (timer.get() == RobotConstants.Shooting.JOYSTICK_WAIT_TIME) {
+
             shooter.getController();
             driver.getController();
 
             timer.reset();
         }
-        
+
         // Drive the robot in response to user input
         driver.drive();
 
@@ -70,7 +72,7 @@ public class Jagbot extends IterativeRobot {
 
         // Check and initiate shooting based on the fire button
         shooter.updateShooting();
-        
+
         shooter.updatePressure();
        
     }

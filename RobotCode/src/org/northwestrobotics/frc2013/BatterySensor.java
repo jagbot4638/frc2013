@@ -17,7 +17,7 @@ public class BatterySensor extends PollingSensor {
     public static final int BATTERY_VOLTAGE = 0;
     private final DriverStation ds;
     private final Vector listeners;
-
+                        // polltime between checks 
     public BatterySensor(int pollTime, String name) {
 
         super(name, pollTime, 1);

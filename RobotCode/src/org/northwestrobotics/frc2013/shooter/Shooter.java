@@ -9,12 +9,19 @@ import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.MotorSafetyHelper;
+import edu.wpi.first.wpilibj.NamedSendable;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.tables.ITable;
 
 import org.northwestrobotics.frc2013.RobotConstants;
 import org.northwestrobotics.frc2013.SendableData;
@@ -82,6 +89,7 @@ public final class Shooter {
 
     /**
      * Adjusts vertical aiming in accordance to user input.
+     *
      * @author AgentOrange
      * @author soggy.potato
      */
@@ -101,10 +109,12 @@ public final class Shooter {
   
                 
 
+
     }
 
     /**
      * Determines whether the driver has commanded the robot to shoot a frisbee.
+     *
      * @author soggy.potato
      */
     boolean isShootButtonPressed() {
@@ -131,7 +141,6 @@ public final class Shooter {
 
     }
 
-   
     // Util
     SpeedController getShootMotor() {
         return shootMotor;
@@ -140,14 +149,16 @@ public final class Shooter {
    public Solenoid getFeeder() {
         return feeder;
     }
-    
+
     private double getShootMotorSpeed() {
+        SmartDashboard.putNumber("Shoot Motor Speed", Math.abs(aimingStick.getAxis(Joystick.AxisType.kZ)));
         return Math.abs(aimingStick.getAxis(Joystick.AxisType.kZ));
     }
-    
+
     private boolean isActivateShootMotorButtonPressed() {
         return aimingStick.getRawButton(RobotConstants.Shooting.TOGGLE_SHOOT_MOTOR_BUTTON);
     }
+
     public void getController() {
         //aimingStick 1, motor 2,
         NetworkTable data = NetworkTable.getTable("Aiming Stick");

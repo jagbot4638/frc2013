@@ -10,8 +10,9 @@ import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
  *
+
  * @author trae
- */
+*/
 public class SendableData implements NamedSendable {
          NetworkTable data;
          String name;
