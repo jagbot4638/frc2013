@@ -24,6 +24,8 @@ public class Jagbot extends IterativeRobot {
     private Joystick aimingController;
     private Driver driver;
     private Shooter shooter;
+    
+    private DecimalData display;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -33,6 +35,7 @@ public class Jagbot extends IterativeRobot {
         driver = new Driver();
         aimingController = new Joystick(RobotConstants.Shooting.AIMING_CONTROLLER);
         shooter = new Shooter(aimingController);
+        display = new DecimalData("Battery voltage");
     }
 
     /**
@@ -55,7 +58,8 @@ public class Jagbot extends IterativeRobot {
         shooter.updateShooting();
         
         shooter.updatePressure();
-        SmartDashboard.putNumber("Voltage", DriverStation.kBatteryChannel);
+        
+        display.setData(DriverStation.getInstance().getBatteryVoltage());
     }
 
     /**
