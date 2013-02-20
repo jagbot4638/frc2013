@@ -85,7 +85,7 @@ public class Jagbot extends IterativeRobot {
                 // Retract solenoid to allow next frisbee to be loaded into the
                 // chamber.
                 shooter.getFeeder().set(false);
-                
+                 Timer.delay(2);
                 // The shooter has launched one frisbee; therefore, there is one
                 // less in the magazine.
                 numberOfFrisbeesInTheMagazine--;
