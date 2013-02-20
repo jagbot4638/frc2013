@@ -58,7 +58,7 @@ public class Jagbot extends IterativeRobot {
 
         shooter = new Shooter(aimingController, airCompressor, feeder);
         
-        numberOfFrisbeesInTheMagazine = 4;
+        numberOfFrisbeesInTheMagazine = 3;
         isStart = true;
     }
 
