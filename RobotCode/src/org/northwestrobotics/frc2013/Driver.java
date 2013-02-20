@@ -24,7 +24,6 @@ class Driver {
 
     /**
      * Joystick responsible for the user control of driving.
-     *
      * @author soggy.potato
      */
     private Joystick moveStick = new Joystick(RobotConstants.Drive.MOVE_CONTROLLER);
