@@ -65,8 +65,8 @@ public final class Shooter {
     // Machine
     private final StateMachine shootingStateMachine = new StateMachine(awaitingUserInputState);
 
-    private final DigitalInput highLimitSwitch = new DigitalInput(RobotConstants.Shooting.HIGH_LIMIT_SWITCH_CHANNEL);
-    private final DigitalInput lowLimitSwitch = new DigitalInput(RobotConstants.Shooting.LOW_LIMIT_SWITCH_CHANNEL);        
+    //private final DigitalInput highLimitSwitch = new DigitalInput(RobotConstants.Shooting.HIGH_LIMIT_SWITCH_CHANNEL);
+    //private final DigitalInput lowLimitSwitch = new DigitalInput(RobotConstants.Shooting.LOW_LIMIT_SWITCH_CHANNEL);        
             
     public Shooter(Joystick aimingStick, Compressor airCompressor, Solenoid feeder) {
         this.aimingStick = aimingStick;
@@ -104,13 +104,13 @@ public final class Shooter {
             pitchAdjustment *= 3;
         }
         
-        if ((highLimitSwitch.get() && pitchAdjustment > 0) ||
+     /*   if ((highLimitSwitch.get() && pitchAdjustment > 0) ||
                 (lowLimitSwitch.get() && pitchAdjustment < 0)) {
             pitchMotor.set(0);
         } else {
             pitchMotor.set(pitchAdjustment);
         }
-                
+       */         
 
     }
 
@@ -165,21 +165,21 @@ public final class Shooter {
      * @author AgentOrange
      * @return A boolean, which tells the caller whether the robot shooter is in position for shooting.
      */
-    public boolean prepareForAutonomousShooting(){
+    //public boolean prepareForAutonomousShooting(){
         
-        if(!highLimitSwitch.get()) {
-            pitchMotor.set(0.2);
-            return false;
-        } else {
-            pitchMotor.set(0);
-            return true;
-        }
+       // if(!highLimitSwitch.get()) {
+         //   pitchMotor.set(0.2);
+           // return false;
+        //} else {
+          //  pitchMotor.set(0);
+            //return true;
+       // }
         
        
         
         
     
-    }
+  //  }
 
     public void deactivateShootMotorForAutonomous() {
         shootMotor.set(0);

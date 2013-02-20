@@ -66,7 +66,7 @@ public class Jagbot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-        if (shooter.prepareForAutonomousShooting()) {
+        //if (shooter.prepareForAutonomousShooting()) {
             if (numberOfFrisbeesInTheMagazine > 0) {
                 if (isStart) {
                     shooter.activateShootMotorForAutonomous();
@@ -94,7 +94,7 @@ public class Jagbot extends IterativeRobot {
                 // not need to be wasted running the shoot motor.
                 shooter.deactivateShootMotorForAutonomous();
             }
-        }
+       // }
         shooter.updatePressure();
 
     }
