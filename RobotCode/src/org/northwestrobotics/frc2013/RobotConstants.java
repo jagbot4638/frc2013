@@ -92,4 +92,12 @@ public class RobotConstants {
         public static final int ACTIVATE_BACK_LEFT_MOTOR_BUTTON = 7;
         public static final int ACTIVATE_BACK_RIGHT_MOTOR_BUTTON = 10;
     }
+    
+    public static final class Display {
+        private Display() {
+            
+        }
+        
+        public static final String BATTERY_VOLTAGE = "Battery voltage: ";
+    }
 }

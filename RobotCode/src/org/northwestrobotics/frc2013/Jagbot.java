@@ -11,6 +11,10 @@ import org.northwestrobotics.frc2013.shooter.Shooter;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import org.northwestrobotics.frc2013.onRobotDisplay.DecimalData;
+import org.northwestrobotics.frc2013.onRobotDisplay.Display;
+import org.northwestrobotics.frc2013.onRobotDisplay.DisplayData;
+import org.northwestrobotics.frc2013.onRobotDisplay.InsightLT;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,6 +28,8 @@ public class Jagbot extends IterativeRobot {
     private Joystick aimingController;
     private Driver driver;
     private Shooter shooter;
+    
+    private Display display;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -33,12 +39,17 @@ public class Jagbot extends IterativeRobot {
         driver = new Driver();
         aimingController = new Joystick(RobotConstants.Shooting.AIMING_CONTROLLER);
         shooter = new Shooter(aimingController);
+        
+        display = new Display();
+        
     }
 
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+        
+        updateDisplay();
     }
 
     /**
@@ -55,6 +66,8 @@ public class Jagbot extends IterativeRobot {
         shooter.updateShooting();
         
         shooter.updatePressure();
+        
+        updateDisplay();
         SmartDashboard.putNumber("Voltage", DriverStation.kBatteryChannel);
     }
 
@@ -63,6 +76,11 @@ public class Jagbot extends IterativeRobot {
      */
     public void testPeriodic() {
       
+    }
+
+    private void updateDisplay() {
+        DriverStation station = DriverStation.getInstance();
+        display.setData(RobotConstants.Display.BATTERY_VOLTAGE, station.getBatteryVoltage());
     }
 
 

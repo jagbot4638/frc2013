@@ -29,7 +29,6 @@ class Driver {
     private Joystick moveStick = new Joystick(RobotConstants.Drive.MOVE_CONTROLLER);
     /**
      * The object called for arcade drive
-     *
      * @author soggy.potato
      */
     private RobotDrive robotDrive;
