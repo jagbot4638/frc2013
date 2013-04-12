@@ -30,16 +30,17 @@ public final class Lifter {
      * @author AgentOrange
      * @author RG3
      */
-    private final DoubleSolenoid[] climber = {
-        new DoubleSolenoid(RobotConstants.Lifter.CLIMBER1_FORWARD_CHANNEL, RobotConstants.Lifter.CLIMBER1_REVERSE_CHANNEL),
-        new DoubleSolenoid(RobotConstants.Lifter.CLIMBER2_FORWARD_CHANNEL, RobotConstants.Lifter.CLIMBER2_REVERSE_CHANNEL)
-    };
+    private final DoubleSolenoid climber =
+        new DoubleSolenoid(RobotConstants.Lifter.CLIMBER_FORWARD_CHANNEL,
+            RobotConstants.Lifter.CLIMBER_REVERSE_CHANNEL);
+    
     /**
      * The joystick used to activate the climbing function.
      *
      * @author soggy.potato
      */
     private final Joystick moveController;
+    private boolean previousButtonState;
 
     /**
      * Initializes the lifter. Specifically, gives the lifter access to the
@@ -50,16 +51,21 @@ public final class Lifter {
      */
     public Lifter(Joystick moveController) {
         this.moveController = moveController;
-        climber[0].set(DoubleSolenoid.Value.kReverse);
-        climber[1].set(DoubleSolenoid.Value.kReverse);
     }
 
     public final void reactToUserInput() {
-        if (moveController.getTrigger()) { // determine whether or not the user has commanded the robot to climb
-            climber[0].set(DoubleSolenoid.Value.kForward); // activate the first double solenoid
-            climber[1].set(DoubleSolenoid.Value.kForward); // activate the second double solenoid
-
-
+        if (isActivateButtonPressed()) { // determine whether or not the user has commanded the robot to climb
+            climber.set(DoubleSolenoid.Value.kForward); // activate both double solenoids double solenoid
+        } else if (isDeactivateButtonPressed()) {
+            climber.set(DoubleSolenoid.Value.kReverse);
         }
+    }
+
+    private boolean isActivateButtonPressed() {
+        return moveController.getRawButton(10);
+    }
+
+    private boolean isDeactivateButtonPressed() {
+        return moveController.getRawButton(11);
     }
 }
