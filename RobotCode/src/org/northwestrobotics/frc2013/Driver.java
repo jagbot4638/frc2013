@@ -30,7 +30,7 @@ class Driver {
      * Joystick responsible for the user control of driving.
      * @author soggy.potato
      */
-    private Joystick moveStick = new Joystick(RobotConstants.Drive.MOVE_CONTROLLER);
+    private Joystick moveStick;
     /**
      * The object called for arcade drive
      *
@@ -46,8 +46,9 @@ class Driver {
     private SpeedController frontRightController = new Victor(RobotConstants.Drive.FRONT_RIGHT_MOTOR);
     private SpeedController backLeftController = new Victor(RobotConstants.Drive.BACK_LEFT_MOTOR);
 
-    public Driver() {
+    public Driver(Joystick moveStick) {
         initializeRobotDrive();
+        this.moveStick = moveStick;
     }
 
     public void drive() {

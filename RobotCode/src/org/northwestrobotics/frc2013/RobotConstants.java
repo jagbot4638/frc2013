@@ -107,4 +107,20 @@ public class RobotConstants {
         public static final int ACTIVATE_BACK_LEFT_MOTOR_BUTTON = 7;
         public static final int ACTIVATE_BACK_RIGHT_MOTOR_BUTTON = 10;
     }
+
+    
+    
+    public static final class Lifter {
+
+        private Lifter() {
+        }
+        
+        public static final int CLIMBER1_FORWARD_CHANNEL = 2;
+        public static final int CLIMBER1_REVERSE_CHANNEL = 3;
+        
+        public static final int CLIMBER2_FORWARD_CHANNEL = 4;
+        public static final int CLIMBER2_REVERSE_CHANNEL = 5;
+        
+        public static final int ACTIVATE_LIFTER_BUTTON = 1;
+    }
 }

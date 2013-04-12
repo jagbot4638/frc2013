@@ -6,16 +6,16 @@
 /*----------------------------------------------------------------------------*/
 package org.northwestrobotics.frc2013;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import org.northwestrobotics.frc2013.shooter.Shooter;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /*
  * Jagbot
  * ======
  */
+
+import org.northwestrobotics.frc2013.shooter.Shooter;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,19 +31,32 @@ public class Jagbot extends IterativeRobot {
      */
 
     private Joystick aimingController;
+    private Joystick moveController;
     private Driver driver;
     private Shooter shooter;
+
     private int magazine = 4;
     private boolean isStart = true;
+
+    
+    /**
+     * Gives access to the lifting subsystem.
+     * @author soggy.potato
+     */
+    private Lifter lifter;
+
 
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-        driver = new Driver();
+        moveController = new Joystick(RobotConstants.Drive.MOVE_CONTROLLER);
         aimingController = new Joystick(RobotConstants.Shooting.AIMING_CONTROLLER);
+        
+        driver = new Driver(moveController);
         shooter = new Shooter(aimingController);
+        lifter = new Lifter(moveController);
     }
 
     public void autonomousInit() {
@@ -102,12 +115,16 @@ public class Jagbot extends IterativeRobot {
         shooter.updateShooting();
 
         shooter.updatePressure();
-        SmartDashboard.putNumber("Voltage", DriverStation.kBatteryChannel);
+        
+        // When the user presses the necessary button, activate the climber
+        lifter.reactToUserInput();
+
     }
 
     /**
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
+
     }
 }
