@@ -17,7 +17,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.northwestrobotics.frc2013.RobotConstants;
 import org.northwestrobotics.frc2013.State;
 import org.northwestrobotics.frc2013.StateMachine;
-
+/*
+ * Shooter
+ * =======
+ */
 /**
  * This class manages the shooting system.
  *
@@ -27,8 +30,10 @@ import org.northwestrobotics.frc2013.StateMachine;
  * @author Deven_Gosalia
  */
 public final class Shooter {
-    // Aiming
-
+    /*
+     * Aiming
+     * ------
+     */
     /**
      * The joystick for obtaining aiming and shooting input.
      */
@@ -40,7 +45,11 @@ public final class Shooter {
      * @author SilverX
      */
     private final SpeedController pitchMotor = new Talon(RobotConstants.Shooting.PITCH_MOTOR);
-    // Shooting
+    /*
+     * Shooting
+     * --------
+     */
+    
     /**
      * The motor used to launch a frisbee at targets.
      *
@@ -49,7 +58,10 @@ public final class Shooter {
      * @author AgentOrange
      */
     private final SpeedController shootMotor = new Talon(RobotConstants.Shooting.SHOOT_MOTOR);
-    // PNEUMATICS
+    /*
+     * Pneumatics
+     * ----------
+     */
     /**
      * Pneumatic arm to push frisbees into shooter
      *
@@ -58,15 +70,19 @@ public final class Shooter {
     private final Solenoid feeder = new Solenoid(RobotConstants.Pneumatics.FEEDER_CHANNEL);
     private final Compressor airCompressor = new Compressor(RobotConstants.Pneumatics.PRESSURE_SWITCH_VALUE,
             RobotConstants.Pneumatics.COMPRESSOR_RELAY);
-    // STATE MACHINE
-    // States
+    /*
+     * State machine
+     * -------------
+     */
+    // ### States
     private final State awaitingUserInputState = new AwaitingUserInputState(this);
     private final State shootingState = new ShootingState(this);
-    // Machine
+    // ### Machine
     private final StateMachine shootingStateMachine = new StateMachine(awaitingUserInputState);
 
     public Shooter(Joystick aimingStick) {
         this.aimingStick = aimingStick;
+        airCompressor.start();
     }
 
     State getAwaitingUserInputState() {
@@ -90,10 +106,26 @@ public final class Shooter {
          * from testing. Perform a range check before calling the set method.
          * May have to change sign.
          */
-        double pitchAdjustment =-aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
-        if (pitchAdjustment < 0) {
-            pitchAdjustment *= 3;
-        }
+        /*
+         * Read in the pitch asjustment the user has made with the joystick.
+         * Scale the value so that it is not to fast for the user to control.
+         */
+        double pitchAdjustment = -aimingStick.getY() * RobotConstants.Shooting.PITCH_FACTOR;
+        
+        /* 
+         * Adjust the adjustment we are about to make when it is going in certain 
+         * directions to counteract weight differences on sides of the shooter
+         * component.
+         */
+        //if (pitchAdjustment < 0) {
+            pitchAdjustment *= 5;
+       // } else {
+           
+       // }
+        
+        /*
+         * Tell the motor to make the pitch asjustment.
+         */
         pitchMotor.set(pitchAdjustment);
   
                 
@@ -108,20 +140,30 @@ public final class Shooter {
         // Determine whether the shoot button is pressed or not.
         return aimingStick.getRawButton(RobotConstants.Shooting.SHOOT_BUTTON);
     }
-
+    /**
+     * Updates the shooting state machine.
+     * @author soggy.potato
+     */
     public void updateShooting() {
         shootingStateMachine.update();
+        // determine whether user wants to activate the shoot motor
         if (isActivateShootMotorButtonPressed()) {
+            /*
+             * Turn on the shoot motor. The value is negated because it has to
+             * rotate in the inverse direction to correctly launch the frisbee.
+             */
             shootMotor.set(-getShootMotorSpeed());
+             
         } else {
-            shootMotor.set(0);
+            shootMotor.set(0); // the user
         }
     }
 
     public void updatePressure() {
-        if (airCompressor.getPressureSwitchValue() == RobotConstants.Pneumatics.MAX_PRESSURE) {
+        if (airCompressor.getPressureSwitchValue() && airCompressor.enabled()) {
             airCompressor.stop();
-        } else {
+        }
+        else {
             airCompressor.start();
         }
 

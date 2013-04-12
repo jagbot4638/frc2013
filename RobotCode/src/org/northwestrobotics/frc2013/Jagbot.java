@@ -11,7 +11,10 @@ import org.northwestrobotics.frc2013.shooter.Shooter;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+/*
+ * Jagbot
+ * ======
+ */
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -20,7 +23,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * directory.
  */
 public class Jagbot extends IterativeRobot {
-
+    /*
+     * Components
+     * ----------
+     */
     private Joystick aimingController;
     private Driver driver;
     private Shooter shooter;

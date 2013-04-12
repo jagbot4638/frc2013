@@ -4,22 +4,34 @@
  */
 package org.northwestrobotics.frc2013;
 
+/*
+ * Robot constants
+ * ===============
+ */
+
 /**
  * This class is responsible for containing all the constants for the robot.
  *
  * @author soggy.potato
  */
 public class RobotConstants {
-
+    /*
+     * Drive
+     * -----
+     */
     public static final class Drive {
 
         private Drive() {
         }
+        
+        // ### User input
         public static final double THRESHOLD = .05;
         public static final int MOVE_CONTROLLER = 1;
         public static final double MAX_MOTOR_SPEED = 1;
-        //Motors
-        /* Front
+        
+        /* 
+         * ### Motor port numbers
+         * Front
          * T3 V4
          * V1 T2
          * Back
@@ -30,7 +42,10 @@ public class RobotConstants {
         public static final int BACK_LEFT_MOTOR = 1;
         public static final int BACK_RIGHT_MOTOR = 2;
     }
-
+    /*
+     * Shooting
+     * --------
+     */
     public static final class Shooting {
 
         private Shooting() {
