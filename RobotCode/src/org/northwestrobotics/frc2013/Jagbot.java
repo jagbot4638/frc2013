@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import org.northwestrobotics.frc2013.shooter.Shooter;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /*
  * Jagbot
@@ -30,6 +31,8 @@ public class Jagbot extends IterativeRobot {
     private Joystick aimingController;
     private Driver driver;
     private Shooter shooter;
+    private int numberOfFrisbeesInTheMagazine = 4;
+    private boolean isStart = true;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -45,6 +48,37 @@ public class Jagbot extends IterativeRobot {
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
+                    if (numberOfFrisbeesInTheMagazine > 0) {
+                if (isStart) {
+                    shooter.activateShootMotorForAutonomous();
+                    
+                    // Waiting for two seconds to allow the shoot motor to speed
+                    // up.
+                    Timer.delay(2);// second
+                    
+                    isStart = false; // we are done starting the motor
+                }
+                
+                // Push frisbee into running motor to fire
+                shooter.getFeeder().set(true);
+                Timer.delay(.5);
+                
+                // Retract solenoid to allow next frisbee to be loaded into the
+                // chamber.
+                shooter.getFeeder().set(false);
+                 Timer.delay(2);
+                // The shooter has launched one frisbee; therefore, there is one
+                // less in the magazine.
+                numberOfFrisbeesInTheMagazine--;
+            } else {
+                // The robot is done shooting; as a result, battery power does 
+                // not need to be wasted running the shoot motor.
+                shooter.deactivateShootMotorForAutonomous();
+            }
+       // }
+        shooter.updatePressure();
+
+
     }
 
     /**

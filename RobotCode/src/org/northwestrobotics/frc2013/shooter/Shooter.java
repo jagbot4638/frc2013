@@ -187,4 +187,10 @@ public final class Shooter {
     private boolean isActivateShootMotorButtonPressed() {
         return aimingStick.getRawButton(RobotConstants.Shooting.TOGGLE_SHOOT_MOTOR_BUTTON);
     }
+
+    public void deactivateShootMotorForAutonomous() {
+    }
+
+    public void activateShootMotorForAutonomous() {
+    }
 }
