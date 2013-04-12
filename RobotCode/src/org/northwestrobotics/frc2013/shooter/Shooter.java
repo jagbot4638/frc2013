@@ -163,7 +163,7 @@ public final class Shooter {
         if (airCompressor.getPressureSwitchValue() && airCompressor.enabled()) {
             airCompressor.stop();
         }
-        else {
+        else if (!airCompressor.enabled() && !airCompressor.getPressureSwitchValue()) {
             airCompressor.start();
         }
 
@@ -189,8 +189,10 @@ public final class Shooter {
     }
 
     public void deactivateShootMotorForAutonomous() {
+        shootMotor.set(0);
     }
 
     public void activateShootMotorForAutonomous() {
+        shootMotor.set(-1);
     }
 }

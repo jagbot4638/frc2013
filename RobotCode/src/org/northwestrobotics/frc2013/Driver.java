@@ -96,10 +96,10 @@ class Driver {
 
     private void initializeRobotDrive() {
         robotDrive = new RobotDrive(frontRightController, backRightController, frontLeftController, backLeftController);
-//        robotDrive.setInvertedMotor(MotorType.kRearRight, true);// original
-//        robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
-//        robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
-//        robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);// original
+        robotDrive.setInvertedMotor(MotorType.kRearRight, true);// original
+        robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+        robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
+        robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);// original
         robotDrive.setMaxOutput(RobotConstants.Drive.MAX_MOTOR_SPEED);
 
     }
