@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * Jagbot
  * ======
  */
+
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -28,10 +29,11 @@ public class Jagbot extends IterativeRobot {
      * Components
      * ----------
      */
+
     private Joystick aimingController;
     private Driver driver;
     private Shooter shooter;
-    private int numberOfFrisbeesInTheMagazine = 4;
+    private int magazine = 4;
     private boolean isStart = true;
 
     /**
@@ -44,38 +46,43 @@ public class Jagbot extends IterativeRobot {
         shooter = new Shooter(aimingController);
     }
 
+    public void autonomousInit() {
+        magazine = 4;
+        isStart = true;
+    }
+
     /**
      * This function is called periodically during autonomous
      */
     public void autonomousPeriodic() {
-                    if (numberOfFrisbeesInTheMagazine > 0) {
-                if (isStart) {
-                    shooter.activateShootMotorForAutonomous();
-                    
-                    // Waiting for two seconds to allow the shoot motor to speed
-                    // up.
-                    Timer.delay(2);// second
-                    
-                    isStart = false; // we are done starting the motor
-                }
-                
-                // Push frisbee into running motor to fire
-                shooter.getFeeder().set(true);
-                Timer.delay(.5);
-                
-                // Retract solenoid to allow next frisbee to be loaded into the
-                // chamber.
-                shooter.getFeeder().set(false);
-                 Timer.delay(2);
-                // The shooter has launched one frisbee; therefore, there is one
-                // less in the magazine.
-                numberOfFrisbeesInTheMagazine--;
-            } else {
-                // The robot is done shooting; as a result, battery power does 
-                // not need to be wasted running the shoot motor.
-                shooter.deactivateShootMotorForAutonomous();
+        if (magazine > 0) {
+            if (isStart) {
+                shooter.activateShootMotorForAutonomous();
+
+                // Waiting for two seconds to allow the shoot motor to speed
+                // up.
+                Timer.delay(2);// second
+
+                isStart = false; // we are done starting the motor
             }
-       // }
+
+            // Push frisbee into running motor to fire
+            shooter.getFeeder().set(true);
+            Timer.delay(.5);
+
+            // Retract solenoid to allow next frisbee to be loaded into the
+            // chamber.
+            shooter.getFeeder().set(false);
+            Timer.delay(2);
+            // The shooter has launched one frisbee; therefore, there is one
+            // less in the magazine.
+            magazine--;
+        } else {
+            // The robot is done shooting; as a result, battery power does 
+            // not need to be wasted running the shoot motor.
+            shooter.deactivateShootMotorForAutonomous();
+        }
+        // }
         shooter.updatePressure();
 
 
@@ -93,7 +100,7 @@ public class Jagbot extends IterativeRobot {
 
         // Check and initiate shooting based on the fire button
         shooter.updateShooting();
-        
+
         shooter.updatePressure();
         SmartDashboard.putNumber("Voltage", DriverStation.kBatteryChannel);
     }
@@ -102,9 +109,5 @@ public class Jagbot extends IterativeRobot {
      * This function is called periodically during test mode
      */
     public void testPeriodic() {
-      
     }
-
-
-    
 }
